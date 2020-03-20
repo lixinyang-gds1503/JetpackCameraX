@@ -42,6 +42,7 @@ class MainActivity : BaseActivity() {
                 startActivity(Intent(this@MainActivity,TabMainActivity::class.java))
             }
         }
+        //todo 权限管理
         btn_camera.setOnClickListener {
             val rxp = RxPermissions(this@MainActivity)
             rxp.request(
