@@ -17,6 +17,9 @@ buildscript {
         def nav_version = "2.3.0-alpha01"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
+        classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
+
     }
 }
 

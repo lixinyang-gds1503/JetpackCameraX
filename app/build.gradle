@@ -8,6 +8,10 @@ apply plugin: 'kotlin-kapt'
 
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: 'kotlin-noarg'
+
+apply plugin: 'kotlin-allopen'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -111,4 +115,30 @@ dependencies {
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
 
 
+
+    def room_version = "2.2.5"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    /*// optional - RxJava support for Room
+    implementation "androidx.room:room-rxjava2:$room_version"*/
+
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+
+
+
+}
+
+
+noArg {
+    annotation("cn.lxyhome.jetpackcamerax.dao.entity")//"aaa.bbb.ccc.ddd为模拟包名"
+}
+
+allOpen {
+    annotation("cn.lxyhome.jetpackcamerax.dao.entity")
 }
