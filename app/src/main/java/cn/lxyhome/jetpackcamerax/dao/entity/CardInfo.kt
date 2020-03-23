@@ -2,6 +2,8 @@ package cn.lxyhome.jetpackcamerax.dao.entity
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  *   <这个类的说明>
@@ -11,9 +13,11 @@ import android.os.Parcelable
  */
 annotation class database
 
+@Entity(tableName = "Card")
 @database
 data class CardInfo(
-    var id:Int,
+    @PrimaryKey(autoGenerate = true)
+    var _id:Int,
     var title: String?,
     var detail: String?,
     var headimg: String?
@@ -27,7 +31,7 @@ data class CardInfo(
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeInt(_id)
         parcel.writeString(title)
         parcel.writeString(detail)
         parcel.writeString(headimg)
