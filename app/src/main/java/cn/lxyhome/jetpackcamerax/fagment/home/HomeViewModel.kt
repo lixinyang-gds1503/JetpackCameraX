@@ -1,13 +1,18 @@
 package cn.lxyhome.jetpackcamerax.fagment.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cn.lxyhome.jetpackcamerax.JetpackApplication
+import cn.lxyhome.jetpackcamerax.dao.entity.CardInfo
 
 class HomeViewModel : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
+    val text = MutableLiveData<String>().apply {
         value = "This is home Fragment"
     }
-    val text: LiveData<String> = _text
+
+    val Cardlist = MutableLiveData<List<CardInfo>>().apply {
+       value =  JetpackApplication.getCardDao()?.queryCardAllList()
+    }
+
 }

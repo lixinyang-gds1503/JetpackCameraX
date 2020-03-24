@@ -23,7 +23,10 @@ interface CardDao {
     fun deleteCard(vararg cardinfos: CardInfo)
 
     @Query("SELECT * FROM Card")
-    fun queryCardAll():LiveData<List<CardInfo>>
+    fun queryCardAllLiveData():LiveData<List<CardInfo>>
+
+    @Query("SELECT * FROM Card")
+    fun queryCardAllList():List<CardInfo>
 
     @Query("SELECT * FROM Card WHERE _id == :id")
     fun queryWhereForCard(id:Int):LiveData<CardInfo>

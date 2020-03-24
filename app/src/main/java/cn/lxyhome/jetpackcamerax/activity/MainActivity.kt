@@ -8,10 +8,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import cn.lxyhome.jetpackcamerax.MyApp
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
-import cn.lxyhome.jetpackcamerax.dao.entity.CardInfo
+import cn.lxyhome.jetpackcamerax.util.startActivity
 import cn.lxyhome.jetpackcamerax.viewmodel.MyButtonModel
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,16 +38,13 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         btn_livedata_test.setOnClickListener {
-            System.currentTimeMillis().run {
-                mBtnModel.buttonText.value = this.toString()
-                startActivity(Intent(this@MainActivity,TabMainActivity::class.java))
-            }
+            startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
         }
 
         btn_insert.setOnClickListener{
-
-            val cardInfo = CardInfo(1,"title1","detail1","headimg1")
-            MyApp.getCardDao()?.insertCard(cardInfo)
+              startActivity<EntryDataActivity>(this@MainActivity){
+                  Intent()
+              }
         }
         //todo 权限管理
         btn_camera.setOnClickListener {

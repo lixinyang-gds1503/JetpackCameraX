@@ -17,7 +17,7 @@ annotation class database
 @database
 data class CardInfo(
     @PrimaryKey(autoGenerate = true)
-    var _id:Int,
+    var _id:Int= 0,
     var title: String?,
     var detail: String?,
     var headimg: String?
@@ -30,6 +30,8 @@ data class CardInfo(
     ) {
     }
 
+    constructor(title: String, detail: String, http: String) : this(0,title,detail,http)
+
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(_id)
         parcel.writeString(title)
@@ -39,6 +41,10 @@ data class CardInfo(
 
     override fun describeContents(): Int {
         return 0
+    }
+
+    override fun toString(): String {
+        return "CardInfo(_id=$_id, title=$title, detail=$detail, headimg=$headimg)"
     }
 
     companion object CREATOR : Parcelable.Creator<CardInfo> {

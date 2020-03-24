@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModel
  *
  */
 class MyButtonModel:ViewModel() {
-    val buttonText:MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    val buttonText:MutableLiveData<String> = MutableLiveData<String>().apply{
+        value = "主页"
     }
 
 }

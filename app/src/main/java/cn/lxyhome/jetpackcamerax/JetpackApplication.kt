@@ -14,7 +14,7 @@ import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
  *E-mail:  lixinyang.bj@fang.com
  *
  */
-class MyApp:Application(),CameraXConfig.Provider {
+class JetpackApplication:Application(),CameraXConfig.Provider {
 
     private lateinit var appDatabase: AppDatabase
     private val db_name = "jetpack_db1.db"
@@ -39,7 +39,7 @@ class MyApp:Application(),CameraXConfig.Provider {
 
     companion object{
         @SuppressLint("StaticFieldLeak")
-        var self:MyApp?= null
+        var self:JetpackApplication?= null
             private set
 
         fun getCardDao():CardDao?{
