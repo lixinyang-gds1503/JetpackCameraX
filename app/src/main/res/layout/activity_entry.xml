@@ -54,6 +54,21 @@
         app:layout_constraintTop_toBottomOf="@+id/et_detail"
         tools:ignore="MissingConstraints" />
 
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="5dp"
+        android:hint="  _id"
+        android:maxLines="1"
+        android:maxEms="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_headimg"
+        tools:ignore="MissingConstraints" />
+
     <Button
         android:id="@+id/btn_insert"
         android:layout_width="wrap_content"

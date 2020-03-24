@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(o, Observer {
             textView.text = it
         })
-        homeViewModel.text.value = "Card表中数据是这样的:"
+        homeViewModel.text.value = "Card表中数据是酱婶儿的:"
         return root
     }
 

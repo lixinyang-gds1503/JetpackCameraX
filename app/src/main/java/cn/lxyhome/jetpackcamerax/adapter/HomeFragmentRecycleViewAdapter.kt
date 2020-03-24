@@ -48,6 +48,8 @@ class HomeFragementRecycleViewHV(private val context: Context, item: View) : Rec
     fun onBind(info:CardInfo) {
         currentItem = info
         Glide.with(context).load(info.headimg)
+            .error(R.mipmap.ic_launcher)
+            .placeholder(R.mipmap.ic_launcher)
             .into(itemView.findViewById<ImageView>(R.id.img_head))
         itemView.findViewById<TextView>(R.id.tv_title).text = info.title
         itemView.findViewById<TextView>(R.id.tv_detail).text = info.detail
