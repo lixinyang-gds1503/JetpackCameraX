@@ -7,6 +7,7 @@ import androidx.camera.core.CameraXConfig
 import androidx.room.Room
 import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
+import cn.lxyhome.jetpackcamerax.dao.tools.DBTools
 
 /**
  *   <这个类的说明>
@@ -28,7 +29,7 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         self = this
         appDatabase = Room.databaseBuilder(applicationContext,AppDatabase::class.java,db_name)
             .allowMainThreadQueries()
-           // .addMigrations()
+            .addMigrations(*DBTools.getMigrations())
             .build()
     }
 

@@ -20,23 +20,26 @@ data class CardInfo(
     var _id:Int= 0,
     var title: String?,
     var detail: String?,
-    var headimg: String?
+    var headimg: String?,
+    var datatime:String?
 ):Parcelable{
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
     ) {
     }
 
-    constructor(title: String, detail: String, http: String) : this(0,title,detail,http)
+    constructor(title: String, detail: String, http: String,datatime: String) : this(0,title,detail,http,datatime)
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(_id)
         parcel.writeString(title)
         parcel.writeString(detail)
         parcel.writeString(headimg)
+        parcel.writeString(datatime)
     }
 
     override fun describeContents(): Int {
@@ -44,8 +47,9 @@ data class CardInfo(
     }
 
     override fun toString(): String {
-        return "CardInfo(_id=$_id, title=$title, detail=$detail, headimg=$headimg)"
+        return "CardInfo(_id=$_id, title=$title, detail=$detail, headimg=$headimg, datatime=$datatime)"
     }
+
 
     companion object CREATOR : Parcelable.Creator<CardInfo> {
         override fun createFromParcel(parcel: Parcel): CardInfo {

@@ -13,7 +13,7 @@ import cn.lxyhome.jetpackcamerax.dao.entity.CardInfo
  */
 
 
-@Database(entities = [CardInfo::class] ,version = 1,exportSchema = false)
+@Database(entities = [CardInfo::class] ,version = 2,exportSchema = false)
  abstract class AppDatabase: RoomDatabase() {
 
     abstract fun cardDao():CardDao

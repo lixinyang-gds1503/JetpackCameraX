@@ -22,7 +22,10 @@ fun toast(message: String) {
     Toast.makeText(JetpackApplication.self,message,Toast.LENGTH_LONG).show()
 }
 
-fun String.isNotNullorEmpty():Boolean {
+fun String?.isNotNullorEmpty():Boolean {
+    if (this==null) {
+        return false
+    }
     this.let {
         return !(this==""|| this.trim()=="" || this.isEmpty())
     }

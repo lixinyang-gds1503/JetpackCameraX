@@ -18,16 +18,32 @@ class EntryDataActivity : BaseActivity() {
 
     private lateinit var priliveModel:EntryDataActivityModel
 
-    private val mObserver = Observer<CardInfo>{
-        if (it._id!=0) {
-            val updataInt = JetpackApplication.getCardDao()?.updateCard(it)
-            if (updataInt == it._id) {
-                this@EntryDataActivity.toast("updata succes")
-            }else{
-                this@EntryDataActivity.toast("updata fail")
+    private val mObserver = Observer<CardInfo>{ newCardinfo->
+        if (newCardinfo._id!=0) {
+            val queryWhereForCard = JetpackApplication.getCardDao()?.queryWhereForCard(newCardinfo._id)
+            queryWhereForCard?.let { queryCardinfo ->
+                val oldCardInfo = queryCardinfo.value
+                oldCardInfo?.run {
+                    if (newCardinfo.title.isNotNullorEmpty()){
+                        this.title = newCardinfo.title
+                    }
+                    if (newCardinfo.detail.isNotNullorEmpty()) {
+                        this.detail = newCardinfo.detail
+                    }
+                    if (newCardinfo.headimg.isNotNullorEmpty()) {
+                        this.headimg = newCardinfo.headimg
+                    }
+                    this.datatime = System.currentTimeMillis().toString()
+                    val updataInt = JetpackApplication.getCardDao()?.updateCard(this)
+                    if (updataInt == this._id) {
+                        this@EntryDataActivity.toast("updata succes")
+                    }else{
+                        this@EntryDataActivity.toast("updata fail")
+                    }
+                }
             }
         }else{
-            val l = JetpackApplication.getCardDao()?.insertCard(it)
+            val l = JetpackApplication.getCardDao()?.insertCard(newCardinfo)
             if (l!=null && l>0L) {
                 Toast.makeText(this@EntryDataActivity,"insert succes",Toast.LENGTH_LONG).show()
             }else{
@@ -53,7 +69,8 @@ class EntryDataActivity : BaseActivity() {
             val title = et_title.text.toString().trim()
             val detail = et_detail.text.toString().trim()
             val http = et_headimg.text.toString()
-            val CardInfo = CardInfo(title,detail,http)
+            val times = System.currentTimeMillis().toString()
+            val CardInfo = CardInfo(title,detail,http,times)
             val _id = et_id.text.toString()
             if (!_id.isNotNullorEmpty()&&  title.isNotNullorEmpty() && detail.isNotNullorEmpty()) {
                 priliveModel.currentData.value = CardInfo
@@ -61,7 +78,7 @@ class EntryDataActivity : BaseActivity() {
                 if (!_id.isNotNullorEmpty()) {
                     this.toast("数据错误")
                 }else {
-                    priliveModel.currentData.value = CardInfo(_id.toInt(),title,detail,http)
+                    priliveModel.currentData.value = CardInfo(_id.toInt(),title,detail,http,times)
                 }
             }
         }
