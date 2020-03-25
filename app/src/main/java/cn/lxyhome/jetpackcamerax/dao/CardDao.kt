@@ -14,24 +14,24 @@ import cn.lxyhome.jetpackcamerax.dao.entity.CardInfo
 interface CardDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCard(cardinfo: CardInfo):Long
+    fun insertCard(cardinfo: CardInfo): Long
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateCard(vararg cardinfos: CardInfo):Int
+    fun updateCard(vararg cardinfos: CardInfo): Int
 
     @Delete
     fun deleteCard(vararg cardinfos: CardInfo)
 
     @Query("SELECT * FROM Card")
-    fun queryCardAllLiveData():LiveData<List<CardInfo>>
+    fun queryCardAllLiveData(): LiveData<List<CardInfo>>
 
     @Query("SELECT * FROM Card")
-    fun queryCardAllList():List<CardInfo>
+    fun queryCardAllList(): List<CardInfo>
 
-    @Query("SELECT * FROM Card WHERE _id == :id")
-    fun queryWhereForCard(id:Int):LiveData<CardInfo>
+    @Query("SELECT * FROM Card WHERE _id= :id")
+    fun queryWhereForCard(id: Int): LiveData<CardInfo>
 
-    @Query("SELECT * FROM Card WHERE title == :title")
-    fun queryWhereForCard(title:String):List<CardInfo>
+    @Query("SELECT * FROM Card WHERE title= :title")
+    fun queryWhereForCard(title: String): List<CardInfo>
 
 }

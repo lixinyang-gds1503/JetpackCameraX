@@ -1,7 +1,10 @@
 package cn.lxyhome.jetpackcamerax.activity
 
 import android.os.Bundle
+import android.os.Handler
+import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.lxyhome.jetpackcamerax.JetpackApplication
@@ -17,31 +20,60 @@ import kotlinx.android.synthetic.main.activity_main.btn_insert
 class EntryDataActivity : BaseActivity() {
 
     private lateinit var priliveModel:EntryDataActivityModel
-
+    private lateinit var mUpdataCardInfo: CardInfo
+    private lateinit var mQuereWhereForCard:LiveData<CardInfo>
+    private lateinit var  mObserve:Observer<CardInfo>
+    private val mhandler = Handler(Handler.Callback {
+        if (it.what ==1) {
+            mObserve?.let {o->
+                mQuereWhereForCard.removeObserver(o)
+                val updataInt = JetpackApplication.getCardDao()?.updateCard(mUpdataCardInfo)
+                if (updataInt == mUpdataCardInfo._id) {
+                    this@EntryDataActivity.toast("updata succes")
+                } else {
+                    this@EntryDataActivity.toast("updata fail")
+                }
+            }
+        }
+                     false
+    })
     private val mObserver = Observer<CardInfo>{ newCardinfo->
         if (newCardinfo._id!=0) {
             val queryWhereForCard = JetpackApplication.getCardDao()?.queryWhereForCard(newCardinfo._id)
-            queryWhereForCard?.let { queryCardinfo ->
-                val oldCardInfo = queryCardinfo.value
-                oldCardInfo?.run {
-                    if (newCardinfo.title.isNotNullorEmpty()){
-                        this.title = newCardinfo.title
-                    }
-                    if (newCardinfo.detail.isNotNullorEmpty()) {
-                        this.detail = newCardinfo.detail
-                    }
-                    if (newCardinfo.headimg.isNotNullorEmpty()) {
-                        this.headimg = newCardinfo.headimg
-                    }
-                    this.datatime = System.currentTimeMillis().toString()
-                    val updataInt = JetpackApplication.getCardDao()?.updateCard(this)
-                    if (updataInt == this._id) {
-                        this@EntryDataActivity.toast("updata succes")
-                    }else{
-                        this@EntryDataActivity.toast("updata fail")
+            if (queryWhereForCard != null) {
+                mQuereWhereForCard = queryWhereForCard
+                mObserve = Observer<CardInfo> {
+                    it.run {
+                        val a = if (newCardinfo.title.isNotNullorEmpty()) {
+                            this.title = newCardinfo.title
+                            true
+                        } else {
+                            false
+                        }
+                        val b = if (newCardinfo.detail.isNotNullorEmpty()) {
+                            this.detail = newCardinfo.detail
+                            true
+                        } else {
+                            false
+                        }
+                        val c = if (newCardinfo.headimg.isNotNullorEmpty()) {
+                            this.headimg = newCardinfo.headimg
+                            true
+                        } else false
+                        if (a && b && c) {
+                            this.datatime = System.currentTimeMillis().toString()
+                            mUpdataCardInfo = this
+                            Log.i("CardDao","1")
+                            mhandler.sendEmptyMessage(1)
+                        }else{
+                            this@EntryDataActivity.toast("updata fail")
+                        }
+
                     }
                 }
+                mQuereWhereForCard.observe(this@EntryDataActivity, mObserve)
             }
+
         }else{
             val l = JetpackApplication.getCardDao()?.insertCard(newCardinfo)
             if (l!=null && l>0L) {

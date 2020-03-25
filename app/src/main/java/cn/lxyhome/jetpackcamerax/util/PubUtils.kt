@@ -33,8 +33,8 @@ fun String?.isNotNullorEmpty():Boolean {
 
 
 
-inline fun <reified T : Activity> startActivity(context: Activity,block:()->Intent) {
+inline fun <reified T : Activity> Activity.startActivity(block:()->Intent) {
     val intent = block()
-    intent.setClass(context,T::class.java)
-    context.startActivity(intent)
+    intent.setClass(this,T::class.java)
+    this.startActivity(intent)
 }

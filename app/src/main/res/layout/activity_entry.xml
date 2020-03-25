@@ -9,6 +9,8 @@
 
 
     <EditText
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:id="@+id/et_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,10 +21,12 @@
         android:maxEms="50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+         />
 
 
     <EditText
+        android:importantForAutofill="no"
         android:id="@+id/et_detail"
         android:background="#eeeeee"
         android:layout_width="match_parent"
@@ -31,7 +35,6 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
         android:hint="  detail"
-        android:maxEms="600"
         android:gravity="start|top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,6 +43,8 @@
 
 
     <EditText
+        android:importantForAutofill="no"
+        android:inputType="text"
         android:id="@+id/et_headimg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,6 +60,9 @@
         tools:ignore="MissingConstraints" />
 
     <EditText
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:digits="1234567890"
         android:id="@+id/et_id"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,8 +70,7 @@
         android:layout_marginEnd="15dp"
         android:layout_marginTop="5dp"
         android:hint="  _id 是空:新建，不是空:修改"
-        android:maxLines="1"
-        android:maxEms="20"
+        android:maxLength="6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_headimg"
@@ -73,7 +80,7 @@
         android:id="@+id/btn_insert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="insert"
+        android:text="新建/修改"
         android:layout_marginBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

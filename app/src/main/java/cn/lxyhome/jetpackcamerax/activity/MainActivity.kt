@@ -42,7 +42,7 @@ class MainActivity : BaseActivity() {
         }
 
         btn_insert.setOnClickListener{
-              startActivity<EntryDataActivity>(this@MainActivity){
+            startActivity<EntryDataActivity>{
                   Intent()
               }
         }
