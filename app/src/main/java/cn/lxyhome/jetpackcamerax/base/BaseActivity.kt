@@ -2,9 +2,12 @@ package cn.lxyhome.jetpackcamerax.base
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
+import cn.lxyhome.jetpackcamerax.util.toast
+import cn.lxyhome.jetpackcamerax.view.BaseLayout
 
 /**
  *   <这个类的说明>
@@ -15,15 +18,55 @@ import androidx.lifecycle.OnLifecycleEvent
  abstract class BaseActivity:AppCompatActivity() {
 
     protected lateinit var myLocationListener:MyLocationListener
+    protected val baseLayout:BaseLayout by lazy {
+
+        BaseLayout(this, back_upOnClick,more_OnClick)
+    }
+
+    val back_upOnClick = {
+        onKeyDown(
+            KeyEvent.KEYCODE_BACK,
+            KeyEvent(
+                KeyEvent.KEYCODE_BACK,
+                KeyEvent.ACTION_DOWN
+            )
+        )
+        this.toast("返回")
+    }
+    val more_OnClick={
+        this.toast("更多")
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            finish()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setContentView(baseLayout)
     }
     fun getLifecycleinfo(): Lifecycle {
         return lifecycle
     }
 
+    protected fun setview(viewid: Int) {
+        if (viewid!=0) {
+            baseLayout.setLocalView(viewid)
+        }
+    }
+
+    protected fun setViewVisible(left: Boolean, right: Boolean) {
+        baseLayout.setViewVisible(left, right)
+    }
+
+
+    protected fun setTitle(message: String?) {
+        baseLayout.setTitle(message)
+    }
     /**
      * 生命周期回调接口
      */

@@ -28,7 +28,9 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setview(R.layout.activity_main)
+        setTitle("扉页")
+        setViewVisible(left = false, right = false)
         myLocationListener = openMyLocationListener()
         myLocationListener?.let {
             it.onCreate()

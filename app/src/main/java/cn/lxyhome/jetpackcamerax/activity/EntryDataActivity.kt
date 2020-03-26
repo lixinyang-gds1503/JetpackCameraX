@@ -86,7 +86,7 @@ class EntryDataActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_entry)
+        setview(R.layout.activity_entry)
         priliveModel = ViewModelProvider(this@EntryDataActivity).get(EntryDataActivityModel::class.java)
         resisterObserver()
         registerLisetner()
