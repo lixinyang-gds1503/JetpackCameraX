@@ -30,6 +30,7 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setview(R.layout.activity_main)
         setTitle("扉页")
+        this.requestedOrientation
         setViewVisible(left = false, right = false)
         myLocationListener = openMyLocationListener()
         myLocationListener?.let {

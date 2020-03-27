@@ -14,7 +14,7 @@
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@color/color_state_menu_navi"
         app:itemTextColor="@color/color_state_menu_navi"
-        android:visibility="gone"
+        android:visibility="visible"
         app:menu="@menu/bottom_nav_menu" />
 
     <fragment

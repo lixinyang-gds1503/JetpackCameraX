@@ -19,7 +19,6 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
 
     protected lateinit var myLocationListener:MyLocationListener
     protected val baseLayout:BaseLayout by lazy {
-
         BaseLayout(this, back_upOnClick,more_OnClick)
     }
 

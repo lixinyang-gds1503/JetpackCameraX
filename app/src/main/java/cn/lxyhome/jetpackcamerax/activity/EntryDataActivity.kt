@@ -87,6 +87,7 @@ class EntryDataActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setview(R.layout.activity_entry)
+        setTitle("录入/修改")
         priliveModel = ViewModelProvider(this@EntryDataActivity).get(EntryDataActivityModel::class.java)
         resisterObserver()
         registerLisetner()
