@@ -5,6 +5,9 @@ import android.app.Application
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import androidx.room.Room
+import cn.lxyhome.jetpackcamerax.config.AppConfig
+import cn.lxyhome.jetpackcamerax.config.AppDBConfig
+import cn.lxyhome.jetpackcamerax.config.Config
 import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
 import cn.lxyhome.jetpackcamerax.dao.tools.DBTools
@@ -17,8 +20,6 @@ import cn.lxyhome.jetpackcamerax.dao.tools.DBTools
  */
 class JetpackApplication:Application(),CameraXConfig.Provider {
 
-    private lateinit var appDatabase: AppDatabase
-    private val db_name = "jetpack_db1.db"
 
     override fun getCameraXConfig(): CameraXConfig {
         return Camera2Config.defaultConfig()
@@ -27,14 +28,11 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         self = this
-        appDatabase = Room.databaseBuilder(applicationContext,AppDatabase::class.java,db_name)
-            .allowMainThreadQueries()
-            .addMigrations(*DBTools.getMigrations())
-            .build()
+        AppConfig.setConfigs(AppDBConfig(applicationContext))
     }
 
-    public fun getDB():AppDatabase? {
-        return appDatabase
+     private fun getDB():AppDatabase? {
+        return AppConfig.getDB()
     }
 
 
