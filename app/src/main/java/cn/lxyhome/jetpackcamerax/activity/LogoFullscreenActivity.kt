@@ -44,6 +44,13 @@ class LogoFullscreenActivity : AppCompatActivity() {
         setContentView(R.layout.activity_logo_fullscreen)
         mHideHandler.post(mHidePart2Runnable)
         tv_timer.text = "4"
+        tv_timer.setOnClickListener {
+            mTimer.cancel()
+            startActivity<MainActivity> {
+                Intent()
+            }
+            finish()
+        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
