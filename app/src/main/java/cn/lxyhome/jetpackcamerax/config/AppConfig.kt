@@ -1,6 +1,7 @@
 package cn.lxyhome.jetpackcamerax.config
 
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
+import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase2
 
 object AppConfig {
     private  var appDBConfig: AppDBConfig?=null
@@ -14,5 +15,9 @@ object AppConfig {
 
     fun getDB(): AppDatabase? {
        return appDBConfig?.getDB()
+    }
+
+    fun getDB2(): AppDatabase2? {
+        return appDBConfig?.getDB2()
     }
 }

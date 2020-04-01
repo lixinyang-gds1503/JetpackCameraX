@@ -61,7 +61,7 @@ class LogoFullscreenActivity : AppCompatActivity() {
                 cont++
                 mHideHandler.sendEmptyMessage(1)
             }
-        },100L,1000L)
+        },100L,1500L)
 
     }
 
