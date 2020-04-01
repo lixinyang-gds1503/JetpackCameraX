@@ -52,7 +52,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.1'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.tencent.bugly:crashreport:3.1.0'
 
 
     /*  // CameraX core library using the camera2 implementation

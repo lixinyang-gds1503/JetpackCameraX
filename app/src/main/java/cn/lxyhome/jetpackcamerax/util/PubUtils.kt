@@ -6,9 +6,11 @@ import android.graphics.Bitmap
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
+import cn.lxyhome.jetpackcamerax.dialog.BackDialog
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -47,6 +49,11 @@ inline fun <reified T : Activity> Activity.startActivity(block:()->Intent) {
     val intent = block()
     intent.setClass(this,T::class.java)
     this.startActivity(intent)
+}
+
+fun AppCompatActivity.showBackDialog(function: (Boolean) -> Unit) {
+    BackDialog(function)
+        .show(supportFragmentManager.beginTransaction(),"backDialog")
 }
 
 fun ImageView.setImageUrl(url: String?, name:String) {

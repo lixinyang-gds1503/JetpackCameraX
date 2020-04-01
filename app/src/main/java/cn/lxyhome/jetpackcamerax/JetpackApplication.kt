@@ -9,6 +9,7 @@ import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
 import cn.lxyhome.jetpackcamerax.config.AppConfig
 import cn.lxyhome.jetpackcamerax.config.AppDBConfig
+import cn.lxyhome.jetpackcamerax.config.BuglyConfig
 import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.UserDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
@@ -31,7 +32,7 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         super.onCreate()
         self = this
         if("cn.lxyhome.jetpackcamerax" == getCurrentProcessName()){
-            AppConfig.setConfigs(AppDBConfig(applicationContext))
+            AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext))
         }
     }
 

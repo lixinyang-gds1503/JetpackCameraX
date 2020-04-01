@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
@@ -16,6 +17,7 @@ import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
 import cn.lxyhome.jetpackcamerax.entity.MainEntity
 import cn.lxyhome.jetpackcamerax.util.setImageUrl
+import cn.lxyhome.jetpackcamerax.util.showBackDialog
 import cn.lxyhome.jetpackcamerax.util.startActivity
 import cn.lxyhome.jetpackcamerax.viewmodel.MainActivityModel
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -26,6 +28,7 @@ import java.util.*
 class MainActivity : BaseActivity() {
 
     private lateinit var mBtnModel:MainActivityModel
+    private var isfinish = false
 
     val observer = Observer<List<MainEntity>> { list ->
         list[0].let {
@@ -57,6 +60,19 @@ class MainActivity : BaseActivity() {
             it.onCreate()
         }
 
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            showBackDialog{
+                isfinish = it
+                if (it) {
+                    super.onKeyDown(keyCode, event)
+                }
+            }
+            return isfinish
+        }
+        return super.onKeyDown(keyCode, event)
     }
 
     private fun initView() {

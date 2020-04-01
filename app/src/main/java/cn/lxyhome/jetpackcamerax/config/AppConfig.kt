@@ -9,6 +9,8 @@ object AppConfig {
         configs.forEach {
             if (it.getConfigTag()==Config.APP_DATABASE_CONFIG_TAG) {
                 appDBConfig = it as AppDBConfig
+            }else if (it.getConfigTag() ==Config.APP_BUGLY_CONFIG_TAG) {
+
             }
         }
     }
