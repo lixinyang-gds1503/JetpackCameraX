@@ -3,8 +3,17 @@
     <string name="app_name">Jetpack应用</string>
     <string name="title_activity_tab_main">首页</string>
     <string name="title_home">列表页</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">第二页</string>
+    <string name="title_notifications">第三页</string>
     <string name="title_activity_logo_fullscreen">Logo开屏</string>
     <string name="dummy_content">LOGO</string>
+    <string name="title_activity_login">登录</string>
+    <string name="prompt_email">邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">登录或者注册</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="welcome">欢迎！</string>
+    <string name="invalid_username">无效名称</string>
+    <string name="invalid_password">密码必须大于5位</string>
+    <string name="login_failed">登录失败</string>
 </resources>

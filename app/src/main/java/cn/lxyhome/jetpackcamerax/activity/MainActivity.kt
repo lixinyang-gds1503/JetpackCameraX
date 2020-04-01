@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.lxyhome.jetpackcamerax.R
+import cn.lxyhome.jetpackcamerax.activity.ui.login.LoginActivity
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
 import cn.lxyhome.jetpackcamerax.entity.MainEntity
 import cn.lxyhome.jetpackcamerax.util.setImageUrl
@@ -116,6 +117,11 @@ class MainActivity : BaseActivity() {
 
         btn_livedata_test.setOnClickListener {
             startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
+        }
+        btn_user.setOnClickListener {
+            startActivity<LoginActivity> {
+                Intent()
+            }
         }
 
         btn_insert.setOnClickListener{
