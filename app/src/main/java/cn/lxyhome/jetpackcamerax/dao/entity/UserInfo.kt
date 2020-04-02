@@ -23,14 +23,14 @@ class UserInfo(
     @ColumnInfo(name = "username")
     @NotNull
     val loginName: String?,
-    var realName:String?,
-    var nickName:String?,
-    var createDate:Long,
-    var upDataDate:Long,
-    var portrait:String?,
-    var NumPhone:String?,
-    var Com:String?,
-    var noteText:String?
+    var realName:String?="",
+    var nickName:String?="",
+    var createDate:Long =System.currentTimeMillis(),
+    var upDataDate:Long  =System.currentTimeMillis(),
+    var portrait:String?="",
+    var NumPhone:String?="",
+    var Com:String?="",
+    var noteText:String?=""
 ):Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

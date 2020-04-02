@@ -1,12 +1,19 @@
 package cn.lxyhome.jetpackcamerax.activity.ui.login
 
+import android.content.Context
+import android.content.Intent
+import android.os.RemoteException
 import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.activity.data.LoginRepository
 import cn.lxyhome.jetpackcamerax.activity.data.Result
+import cn.lxyhome.jetpackcamerax.service.BackService
+import cn.lxyhome.jetpackcamerax.service.BackServiceConnection
+import cn.lxyhome.jetpackcamerax.util.toast
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 
@@ -15,6 +22,38 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
 
     private val _loginResult = MutableLiveData<LoginResult>()
     val loginResult: LiveData<LoginResult> = _loginResult
+    private val mBackServiceConnection = BackServiceConnection()
+
+    fun bindBackService(context: Context):Boolean {
+        //todolxy     启动后台服务  存储 userinfo
+        if (context is LoginActivity) {
+            val activity = context as LoginActivity
+            return  activity.bindService(Intent(context,BackService::class.java),mBackServiceConnection,Context.BIND_AUTO_CREATE)
+        }
+        return false
+    }
+
+    fun unbindBackService(context: Context) {
+        context.unbindService(mBackServiceConnection)
+    }
+    //密码存在share文件里 暗文
+    fun loginOrSing(username: String) {
+
+        val userinfos = JetpackApplication.getUserDao()?.queryWhereForUser(username)
+        if (userinfos!=null && userinfos.isNotEmpty()) {
+            //todo 跳转用户详情页
+            toast("跳转用户详情页")
+        }else {
+            //todo 注册后 跳转用户详情页
+            try {
+                toast("注册后 跳转用户详情页")
+                mBackServiceConnection.mbb?.callFuction(username)
+            } catch (e: RemoteException) {
+            }
+        }
+
+    }
+
 
     fun login(username: String, password: String) {
         // can be launched in a separate asynchronous job

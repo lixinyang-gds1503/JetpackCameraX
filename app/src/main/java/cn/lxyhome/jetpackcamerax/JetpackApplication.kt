@@ -33,6 +33,8 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         self = this
         if("cn.lxyhome.jetpackcamerax" == getCurrentProcessName()){
             AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext))
+        } else if ("cn.lxyhome.jetpackcamerax:back" == getCurrentProcessName()) {//多进程的时候 application 也是多个的
+            AppConfig.setConfigs(AppDBConfig(applicationContext))
         }
     }
 

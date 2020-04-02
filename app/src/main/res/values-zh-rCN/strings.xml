@@ -8,7 +8,7 @@
     <string name="title_activity_logo_fullscreen">Logo开屏</string>
     <string name="dummy_content">LOGO</string>
     <string name="title_activity_login">登录</string>
-    <string name="prompt_email">邮箱</string>
+    <string name="prompt_email">邮箱 或 手机号 或者 自定义用户名</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登录或者注册</string>
     <string name="action_sign_in_short">登录</string>

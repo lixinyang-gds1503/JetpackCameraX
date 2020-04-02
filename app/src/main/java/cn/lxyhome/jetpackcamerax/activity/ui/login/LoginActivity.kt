@@ -1,11 +1,7 @@
 package cn.lxyhome.jetpackcamerax.activity.ui.login
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -14,13 +10,30 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.annotation.StringRes
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
+import cn.lxyhome.jetpackcamerax.util.toast
 
 
 class LoginActivity : BaseActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+
+    override fun onDestroy() {
+        super.onDestroy()
+        loginViewModel.unbindBackService(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (!loginViewModel.bindBackService(this)) {
+            toast("抱歉，后台服务没有启动")
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +45,7 @@ class LoginActivity : BaseActivity() {
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
+        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
@@ -92,8 +105,9 @@ class LoginActivity : BaseActivity() {
             }
 
             login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+             //   loading.visibility = View.VISIBLE
+             //   loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.loginOrSing(username.text.toString())
             }
         }
     }
@@ -102,11 +116,7 @@ class LoginActivity : BaseActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
+        toast("$welcome $displayName")
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
