@@ -6,7 +6,6 @@ import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
-import cn.lxyhome.jetpackcamerax.util.toast
 import cn.lxyhome.jetpackcamerax.view.BaseLayout
 
 /**
@@ -22,18 +21,18 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
         BaseLayout(this, back_upOnClick,more_OnClick)
     }
 
-    val back_upOnClick = {
-        onKeyDown(
+    var back_upOnClick = {
+      val key =   onKeyDown(
             KeyEvent.KEYCODE_BACK,
             KeyEvent(
                 KeyEvent.KEYCODE_BACK,
                 KeyEvent.ACTION_DOWN
             )
         )
-        this.toast("返回")
+        //Unit
     }
-    val more_OnClick={
-        this.toast("更多")
+    var more_OnClick={
+
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

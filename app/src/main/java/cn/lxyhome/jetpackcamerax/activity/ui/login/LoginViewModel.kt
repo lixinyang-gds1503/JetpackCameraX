@@ -23,6 +23,10 @@ class LoginViewModel() : ViewModel() {
     val loginResult: LiveData<LoginResult> = _loginResult
     private val mBackServiceConnection = BackServiceConnection()
 
+    fun setLoginValue(lr:LoginResult) {
+        _loginResult.value  = lr
+    }
+
     fun bindBackService(context: Context):Boolean {
         //todolxy     启动后台服务  存储 userinfo
         if (context is LoginActivity) {
@@ -42,7 +46,7 @@ class LoginViewModel() : ViewModel() {
         if (userinfos!=null && userinfos.isNotEmpty()) {
             //todo 跳转用户详情页
             toast("跳转用户详情页")
-            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = userinfos[0].loginName!!))
+            setLoginValue(LoginResult(success = userinfos[0]))
         }else {
             //todo 注册后 跳转用户详情页
             try {

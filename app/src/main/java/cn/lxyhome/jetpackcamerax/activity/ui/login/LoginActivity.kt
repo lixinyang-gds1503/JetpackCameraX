@@ -1,6 +1,7 @@
 package cn.lxyhome.jetpackcamerax.activity.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -16,8 +17,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import cn.lxyhome.jetpackcamerax.IServiceToViewInterface
 import cn.lxyhome.jetpackcamerax.R
+import cn.lxyhome.jetpackcamerax.activity.UserInfoActivity
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
 import cn.lxyhome.jetpackcamerax.dao.entity.UserInfo
+import cn.lxyhome.jetpackcamerax.util.startActivity
 import cn.lxyhome.jetpackcamerax.util.toast
 
 
@@ -33,6 +36,13 @@ class LoginActivity : BaseActivity() {
         if (it.what==1) {
             loading.visibility = View.GONE
             toast("insert success")
+            if (it.obj!= null) {
+                val infos:List<UserInfo> = it.obj as List<UserInfo>
+                startActivity<UserInfoActivity> {
+                    Intent().putExtra("username",infos[0])
+                }
+                finish()
+            }
         }
         false
     })
@@ -85,13 +95,15 @@ class LoginActivity : BaseActivity() {
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
-            finish()
+            if (loginResult.success != null) {
+                setResult(Activity.RESULT_OK)
+               startActivity<UserInfoActivity> {
+                   Intent().putExtra("username",it.success)
+               }
+                finish()
+            }
+
         })
 
         username.afterTextChanged {
@@ -125,13 +137,6 @@ class LoginActivity : BaseActivity() {
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        toast("$welcome $displayName")
-    }
-
     private fun showLoginFailed(@StringRes errorString: Int) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
@@ -142,7 +147,12 @@ class LoginActivity : BaseActivity() {
     private inner class InnerAIDLCallback:IServiceToViewInterface.Stub(){
         override fun insertState(state: Boolean, userinfos: MutableList<UserInfo>?) {
             if (state) {
-                mHandler.sendEmptyMessage(1)
+                val obtainMessage = mHandler.obtainMessage()
+                obtainMessage.run {
+                    obj = userinfos
+                    what = 1
+                }
+                mHandler.sendMessage(obtainMessage)
             }
         }
 

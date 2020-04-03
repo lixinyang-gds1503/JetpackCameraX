@@ -23,19 +23,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.UserInfoActivity"></activity>
 
         <service
-            android:name="cn.lxyhome.jetpackcamerax.service.BackService"
+            android:name=".service.BackService"
             android:enabled="true"
-            android:process=":back"
-            android:exported="true">
+            android:exported="true"
+            android:process=":back">
             <intent-filter>
                 <action android:name="cn.lxyhome.jetpackcamerax.service.BackService" />
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".activity.ui.login.LoginActivity" />
+        <activity android:name=".activity.ui.login.LoginActivity" />
         <activity
             android:name=".activity.LogoFullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
