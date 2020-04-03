@@ -7,15 +7,14 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cn.lxyhome.jetpackcamerax.IServiceToViewInterface
 import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
-import cn.lxyhome.jetpackcamerax.activity.data.LoginRepository
-import cn.lxyhome.jetpackcamerax.activity.data.Result
 import cn.lxyhome.jetpackcamerax.service.BackService
 import cn.lxyhome.jetpackcamerax.service.BackServiceConnection
 import cn.lxyhome.jetpackcamerax.util.toast
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel() : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
@@ -37,34 +36,22 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
         context.unbindService(mBackServiceConnection)
     }
     //密码存在share文件里 暗文
-    fun loginOrSing(username: String) {
+    fun loginOrSignIn(username: String, callback: IServiceToViewInterface) {
 
         val userinfos = JetpackApplication.getUserDao()?.queryWhereForUser(username)
         if (userinfos!=null && userinfos.isNotEmpty()) {
             //todo 跳转用户详情页
             toast("跳转用户详情页")
+            _loginResult.value = LoginResult(success = LoggedInUserView(displayName = userinfos[0].loginName!!))
         }else {
             //todo 注册后 跳转用户详情页
             try {
-                toast("注册后 跳转用户详情页")
-                mBackServiceConnection.mbb?.callFuction(username)
+                //toast("注册后 跳转用户详情页")
+                mBackServiceConnection.mbb?.insertUserInfo(username,callback)
             } catch (e: RemoteException) {
             }
         }
 
-    }
-
-
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
-
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
     }
 
     fun loginDataChanged(username: String, password: String) {

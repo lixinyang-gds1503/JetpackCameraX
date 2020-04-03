@@ -30,6 +30,10 @@ fun BaseActivity.toast(message: String) {
     Toast.makeText(this,message,Toast.LENGTH_LONG).show()
 }
 
+fun JetpackApplication.toast(message: String) {
+    Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+}
+
 fun toast(message: String) {
     Toast.makeText(JetpackApplication.self,message,Toast.LENGTH_LONG).show()
 }

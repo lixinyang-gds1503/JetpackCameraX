@@ -22,6 +22,7 @@ class BaseLayout(context: Context?, vararg onclicks: (() -> Unit)?) : LinearLayo
      lateinit var img_back:ImageView
      lateinit var img_more:ImageView
      lateinit var tv_title:TextView
+    var ll_header_left:LinearLayout
 
     private lateinit var onclicks:Array<out (()->Unit)?>
     init {
@@ -32,9 +33,11 @@ class BaseLayout(context: Context?, vararg onclicks: (() -> Unit)?) : LinearLayo
         img_back = child.findViewById(R.id.btn_back)
         img_more = child.findViewById(R.id.iv_add)
         tv_title = child.findViewById(R.id.tv_header_title)
+        ll_header_left = child.findViewById(R.id.ll_header_left)
 
         img_back.setOnClickListener(this)
         img_more.setOnClickListener(this)
+        ll_header_left.setOnClickListener(this)
         this.addView(child,0)
     }
 
@@ -76,7 +79,7 @@ class BaseLayout(context: Context?, vararg onclicks: (() -> Unit)?) : LinearLayo
                     onclicks[1]?.let { it() }
                 }
             }
-            R.id.btn_back->{
+            R.id.btn_back,R.id.ll_header_left->{
                 if(onclicks.isNotEmpty()){
                     onclicks[0]?.let { it() }
                 }

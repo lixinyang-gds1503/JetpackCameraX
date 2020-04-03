@@ -10,6 +10,7 @@ import androidx.camera.core.CameraXConfig
 import cn.lxyhome.jetpackcamerax.config.AppConfig
 import cn.lxyhome.jetpackcamerax.config.AppDBConfig
 import cn.lxyhome.jetpackcamerax.config.BuglyConfig
+import cn.lxyhome.jetpackcamerax.config.Config
 import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.UserDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
@@ -31,25 +32,14 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
     override fun onCreate() {
         super.onCreate()
         self = this
-        if("cn.lxyhome.jetpackcamerax" == getCurrentProcessName()){
+        if(Config.APP_PROCESS_NAME_2 == getCurrentProcessName()){
             AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext))
-        } else if ("cn.lxyhome.jetpackcamerax:back" == getCurrentProcessName()) {//多进程的时候 application 也是多个的
+        } else if (Config.APP_PROCESS_NAME_1 == getCurrentProcessName()) {//多进程的时候 application 也是多个的
             AppConfig.setConfigs(AppDBConfig(applicationContext))
         }
     }
 
-    private fun getCurrentProcessName():String? {
-        val pid = Process.myPid()
-        val mActivityManager =
-            getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        for (appProcess in mActivityManager
-            .runningAppProcesses) {
-            if (appProcess.pid == pid) {
-                return appProcess.processName
-            }
-        }
-        return   null
-    }
+
 
     private fun getDB():AppDatabase? {
         return AppConfig.getDB()
@@ -70,6 +60,19 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         }
         fun getUserDao(): UserDao? {
             return  self?.getDB2()?.userDao()
+        }
+
+        fun getCurrentProcessName():String? {
+            val pid = Process.myPid()
+            val mActivityManager =
+               self?.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            for (appProcess in mActivityManager
+                .runningAppProcesses) {
+                if (appProcess.pid == pid) {
+                    return appProcess.processName
+                }
+            }
+            return   null
         }
     }
 }
