@@ -150,7 +150,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun startAnimator(view:View) {
-        val animator = ObjectAnimator.ofFloat(view,"translationX",(ll_parent.width-ll_parent.paddingStart).toFloat(),ll_parent.paddingStart.toFloat())
+        val animator = ObjectAnimator.ofFloat(view,"translationX",(ll_parent.width-ll_parent.paddingStart-ll_parent.paddingEnd).toFloat(),0f)
         animator.interpolator = AccelerateDecelerateInterpolator()
         animator.duration = 1000L
        animator.start()

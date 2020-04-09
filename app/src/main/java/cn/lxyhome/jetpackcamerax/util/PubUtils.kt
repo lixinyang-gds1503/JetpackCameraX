@@ -53,6 +53,7 @@ inline fun <reified T : Activity> Activity.startActivity(block:()->Intent) {
     val intent = block()
     intent.setClass(this,T::class.java)
     this.startActivity(intent)
+    //overridePendingTransition()
 }
 
 fun AppCompatActivity.showBackDialog(function: (Boolean) -> Unit) {
