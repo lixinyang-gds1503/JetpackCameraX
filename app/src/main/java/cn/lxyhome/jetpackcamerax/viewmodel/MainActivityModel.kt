@@ -1,8 +1,11 @@
 package cn.lxyhome.jetpackcamerax.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.entity.MainEntity
+import cn.lxyhome.jetpackcamerax.util.toast
 
 /**
  *   <这个类的说明>
@@ -18,6 +21,17 @@ class MainActivityModel:ViewModel() {
         list.add(MainEntity("http://img4.imgtn.bdimg.com/it/u=3396849968,2501703168&fm=26&gp=0.jpg","卡片"))
         list.add(MainEntity("http://img3.imgtn.bdimg.com/it/u=2221945056,112347075&fm=26&gp=0.jpg","用户"))
         value = list
+    }
+
+    fun getBackCountSP() {
+        JetpackApplication.self?.let {
+            val sharedPreferences =
+                it.getSharedPreferences("appBackCountCWorker", Context.MODE_PRIVATE)
+            val count = sharedPreferences.getString("count", "")
+            count?.let { msg ->
+                toast(msg)
+            }
+        }
     }
 
 }

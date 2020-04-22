@@ -7,10 +7,8 @@ import android.content.Context
 import android.os.Process
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
-import cn.lxyhome.jetpackcamerax.config.AppConfig
-import cn.lxyhome.jetpackcamerax.config.AppDBConfig
-import cn.lxyhome.jetpackcamerax.config.BuglyConfig
-import cn.lxyhome.jetpackcamerax.config.Config
+import androidx.work.WorkManager
+import cn.lxyhome.jetpackcamerax.config.*
 import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.UserDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
@@ -33,7 +31,9 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         super.onCreate()
         self = this
         if(Config.APP_PROCESS_NAME_2 == getCurrentProcessName()){
-            AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext))
+            AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext),
+                WorkManagerConfig(applicationContext)
+            )
         } else if (Config.APP_PROCESS_NAME_1 == getCurrentProcessName()) {//多进程的时候 application 也是多个的
             AppConfig.setConfigs(AppDBConfig(applicationContext))
         }
@@ -49,6 +49,10 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         return AppConfig.getDB2()
     }
 
+    private fun getWorkManager(context: Context): WorkManager? {
+        return AppConfig.getWorkManager(context)
+    }
+
 
     companion object{
         @SuppressLint("StaticFieldLeak")
@@ -60,6 +64,10 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         }
         fun getUserDao(): UserDao? {
             return  self?.getDB2()?.userDao()
+        }
+
+        fun getWorkManager(context: Context): WorkManager? {
+            return  self?.getWorkManager(context)
         }
 
         fun getCurrentProcessName():String? {

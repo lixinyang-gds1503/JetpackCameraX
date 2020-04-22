@@ -2,17 +2,24 @@ package cn.lxyhome.jetpackcamerax.activity
 
 import android.Manifest
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
+import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.activity.ui.login.LoginActivity
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
@@ -20,7 +27,9 @@ import cn.lxyhome.jetpackcamerax.entity.MainEntity
 import cn.lxyhome.jetpackcamerax.util.setImageUrl
 import cn.lxyhome.jetpackcamerax.util.showBackDialog
 import cn.lxyhome.jetpackcamerax.util.startActivity
+import cn.lxyhome.jetpackcamerax.util.toast
 import cn.lxyhome.jetpackcamerax.viewmodel.MainActivityModel
+import cn.lxyhome.jetpackcamerax.work.MyBackCountCoroutineWorker
 import com.tbruyelle.rxpermissions2.RxPermissions
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -61,6 +70,13 @@ class MainActivity : BaseActivity() {
             it.onCreate()
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        /*myLocationListener?.let {
+            it.onResume()
+        }*/
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -164,6 +180,28 @@ class MainActivity : BaseActivity() {
                 mBtnModel = ViewModelProvider(this@MainActivity).get(MainActivityModel::class.java)
                 mBtnModel.buttonText.observe(this@MainActivity, observer)
                 initView()
+                val build = OneTimeWorkRequestBuilder<MyBackCountCoroutineWorker>()
+                    .setConstraints(Constraints.NONE)
+                    .setInputData(Data.Builder().build()).build()
+                mBtnModel.getBackCountSP()
+                JetpackApplication.getWorkManager(this@MainActivity)?.let {
+                    Log.e("WorkManager",it.toString())
+                    it.enqueue(build)
+                    it.getWorkInfoByIdLiveData(build.id).observe(this@MainActivity,
+                        Observer {workInfo->
+                            if (workInfo.state == WorkInfo.State.SUCCEEDED) {
+                                val sharedPreferences =
+                                    getSharedPreferences("appBackCountCWorker", Context.MODE_PRIVATE)
+                                val count = sharedPreferences.getString("count", "")
+                                count?.let { msg ->
+                                    toast(msg)
+                                }
+                            }else {
+                                Log.e("mainactivity",workInfo.state.toString())
+                            }
+                        })
+                }
+
             }
 
             override fun onStart() {
