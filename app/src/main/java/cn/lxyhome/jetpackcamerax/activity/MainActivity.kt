@@ -39,6 +39,9 @@ class MainActivity : BaseActivity() {
 
     private lateinit var mBtnModel:MainActivityModel
     private var isfinish = false
+    private val build = OneTimeWorkRequestBuilder<MyBackCountCoroutineWorker>()
+        .setConstraints(Constraints.NONE)
+        .setInputData(Data.Builder().build()).build()
 
     val observer = Observer<List<MainEntity>> { list ->
         list[0].let {
@@ -66,9 +69,7 @@ class MainActivity : BaseActivity() {
         this.requestedOrientation
         setViewVisible(left = false, right = false)
         myLocationListener = openMyLocationListener()
-        myLocationListener?.let {
-            it.onCreate()
-        }
+        myLocationListener.onCreate()
 
     }
 
@@ -77,6 +78,11 @@ class MainActivity : BaseActivity() {
         /*myLocationListener?.let {
             it.onResume()
         }*/
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        myLocationListener.onDestroy()
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
@@ -180,9 +186,6 @@ class MainActivity : BaseActivity() {
                 mBtnModel = ViewModelProvider(this@MainActivity).get(MainActivityModel::class.java)
                 mBtnModel.buttonText.observe(this@MainActivity, observer)
                 initView()
-                val build = OneTimeWorkRequestBuilder<MyBackCountCoroutineWorker>()
-                    .setConstraints(Constraints.NONE)
-                    .setInputData(Data.Builder().build()).build()
                 mBtnModel.getBackCountSP()
                 JetpackApplication.getWorkManager(this@MainActivity)?.let {
                     Log.e("WorkManager",it.toString())
@@ -217,7 +220,9 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDestroy() {
-
+                    JetpackApplication.getWorkManager(this@MainActivity)?.let {
+                        it.cancelWorkById(build.id)
+                    }
             }
         }
     }

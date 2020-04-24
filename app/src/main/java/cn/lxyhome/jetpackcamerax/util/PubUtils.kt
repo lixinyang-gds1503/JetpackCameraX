@@ -49,9 +49,10 @@ fun String?.isNotNullorEmpty():Boolean {
 
 
 
-inline fun <reified T : Activity> Activity.startActivity(block:()->Intent) {
-    val intent = block()
+inline fun <reified T : Activity> Activity.startActivity(block:(intent:Intent)->Unit) {
+    val intent = Intent()
     intent.setClass(this,T::class.java)
+    block(intent)
     this.startActivity(intent)
     //overridePendingTransition()
 }

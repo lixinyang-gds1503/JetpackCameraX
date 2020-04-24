@@ -34,4 +34,8 @@ class MainActivityModel:ViewModel() {
         }
     }
 
+    fun test(): String {
+        return ""
+    }
+
 }
