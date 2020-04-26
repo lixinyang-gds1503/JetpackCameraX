@@ -11,7 +11,7 @@ import kotlinx.coroutines.*
 /**
  *   <后台计数的Worker>
  *This Class: lixinyang on 2020/4/21 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class MyBackCountCoroutineWorker(val appContext: Context, private val params: WorkerParameters) :

@@ -13,11 +13,12 @@ import cn.lxyhome.jetpackcamerax.dao.CardDao
 import cn.lxyhome.jetpackcamerax.dao.UserDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase2
+import cn.lxyhome.jetpackcamerax.notifi.NotifiManager
 
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/18 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class JetpackApplication:Application(),CameraXConfig.Provider {
@@ -32,11 +33,11 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
         self = this
         if(Config.APP_PROCESS_NAME_2 == getCurrentProcessName()){
             AppConfig.setConfigs(AppDBConfig(applicationContext),BuglyConfig(applicationContext),
-                WorkManagerConfig(applicationContext)
-            )
+                WorkManagerConfig(applicationContext))
         } else if (Config.APP_PROCESS_NAME_1 == getCurrentProcessName()) {//多进程的时候 application 也是多个的
             AppConfig.setConfigs(AppDBConfig(applicationContext))
         }
+        NotifiManager.createNotificationChannel()
     }
 
 

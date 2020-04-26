@@ -10,7 +10,7 @@ import cn.lxyhome.jetpackcamerax.util.toast
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/19 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class MainActivityModel:ViewModel() {

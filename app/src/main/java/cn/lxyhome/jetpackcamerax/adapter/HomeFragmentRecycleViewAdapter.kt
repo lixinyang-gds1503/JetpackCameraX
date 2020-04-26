@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/24 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class HomeFragmentRecycleViewAdapter(private val context:Context, private val list:List<CardInfo>):RecyclerView.Adapter<HomeFragementRecycleViewHV>() {

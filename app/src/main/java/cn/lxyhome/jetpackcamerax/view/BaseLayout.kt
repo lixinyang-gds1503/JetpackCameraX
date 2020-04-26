@@ -13,7 +13,7 @@ import cn.lxyhome.jetpackcamerax.R
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/26 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 @SuppressLint("ViewConstructor")

@@ -24,6 +24,7 @@ import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.activity.ui.login.LoginActivity
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
 import cn.lxyhome.jetpackcamerax.entity.MainEntity
+import cn.lxyhome.jetpackcamerax.notifi.NotifiManager
 import cn.lxyhome.jetpackcamerax.util.setImageUrl
 import cn.lxyhome.jetpackcamerax.util.showBackDialog
 import cn.lxyhome.jetpackcamerax.util.startActivity
@@ -151,6 +152,9 @@ class MainActivity : BaseActivity() {
                   Intent()
               }
         }
+        img_main.setOnClickListener {
+            NotifiManager.notifi(this@MainActivity)
+        }
         //todo 权限管理
         btn_camera.setOnClickListener {
             val rxp = RxPermissions(this@MainActivity)
@@ -199,6 +203,8 @@ class MainActivity : BaseActivity() {
                                 count?.let { msg ->
                                     toast(msg)
                                 }
+                                val string = workInfo.outputData.getString("count")
+                                Log.e("mainactivity", string?:"")
                             }else {
                                 Log.e("mainactivity",workInfo.state.toString())
                             }

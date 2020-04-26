@@ -11,7 +11,7 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/19 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
  abstract class BaseActivity:AppCompatActivity() {

@@ -98,7 +98,7 @@ class LoginActivity : BaseActivity() {
 
             if (loginResult.success != null) {
                 setResult(Activity.RESULT_OK)
-               startActivity<UserInfoActivity> {
+               startActivity<UserInfoActivity> {intient->
                    Intent().putExtra("username",it.success)
                }
                 finish()

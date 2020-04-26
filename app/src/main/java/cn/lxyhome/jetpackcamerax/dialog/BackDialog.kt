@@ -20,7 +20,7 @@ import cn.lxyhome.jetpackcamerax.util.setImageUrl
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/4/1 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class BackDialog(val function:(Boolean)->Unit):DialogFragment() {

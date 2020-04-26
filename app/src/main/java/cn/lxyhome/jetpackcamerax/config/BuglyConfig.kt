@@ -6,7 +6,7 @@ import com.tencent.bugly.crashreport.CrashReport
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/4/1 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class BuglyConfig(val context: Context):Config {

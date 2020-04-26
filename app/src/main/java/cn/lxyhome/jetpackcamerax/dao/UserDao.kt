@@ -7,7 +7,7 @@ import cn.lxyhome.jetpackcamerax.dao.entity.UserInfo
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/3/31 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 @Dao

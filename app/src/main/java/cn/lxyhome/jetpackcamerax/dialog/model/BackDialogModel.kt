@@ -7,7 +7,7 @@ import cn.lxyhome.jetpackcamerax.entity.BackDialogEntity
 /**
  *   <这个类的说明>
  *This Class: lixinyang on 2020/4/1 created.
- *E-mail:  lixinyang.bj@fang.com
+ *""
  *
  */
 class BackDialogModel: ViewModel() {
