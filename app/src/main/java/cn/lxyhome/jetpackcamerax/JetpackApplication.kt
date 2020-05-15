@@ -21,6 +21,7 @@ import cn.lxyhome.jetpackcamerax.notifi.NotifiManager
  *""
  *
  */
+
 class JetpackApplication:Application(),CameraXConfig.Provider {
 
 
