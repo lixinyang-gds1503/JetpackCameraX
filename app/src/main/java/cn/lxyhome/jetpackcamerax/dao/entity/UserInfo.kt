@@ -63,6 +63,40 @@ class UserInfo(
         return 0
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as UserInfo
+
+        if (_id != other._id) return false
+        if (loginName != other.loginName) return false
+        if (realName != other.realName) return false
+        if (nickName != other.nickName) return false
+        if (createDate != other.createDate) return false
+        if (upDataDate != other.upDataDate) return false
+        if (portrait != other.portrait) return false
+        if (NumPhone != other.NumPhone) return false
+        if (Com != other.Com) return false
+        if (noteText != other.noteText) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = _id
+        result = 31 * result + (loginName?.hashCode() ?: 0)
+        result = 31 * result + (realName?.hashCode() ?: 0)
+        result = 31 * result + (nickName?.hashCode() ?: 0)
+        result = 31 * result + createDate.hashCode()
+        result = 31 * result + upDataDate.hashCode()
+        result = 31 * result + (portrait?.hashCode() ?: 0)
+        result = 31 * result + (NumPhone?.hashCode() ?: 0)
+        result = 31 * result + (Com?.hashCode() ?: 0)
+        result = 31 * result + (noteText?.hashCode() ?: 0)
+        return result
+    }
+
     companion object CREATOR : Parcelable.Creator<UserInfo> {
         override fun createFromParcel(parcel: Parcel): UserInfo {
             return UserInfo(parcel)
@@ -72,4 +106,6 @@ class UserInfo(
             return arrayOfNulls(size)
         }
     }
+
+
 }

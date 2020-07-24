@@ -2,6 +2,7 @@ package cn.lxyhome.jetpackcamerax.base
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
@@ -21,7 +22,7 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
         BaseLayout(this, back_upOnClick,more_OnClick)
     }
 
-    var back_upOnClick = {
+    open var back_upOnClick = {
       val key =   onKeyDown(
             KeyEvent.KEYCODE_BACK,
             KeyEvent(
@@ -31,8 +32,8 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
         )
         //Unit
     }
-    var more_OnClick={
-
+    open var more_OnClick:()->Unit={
+        Log.e("base","base more")
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {

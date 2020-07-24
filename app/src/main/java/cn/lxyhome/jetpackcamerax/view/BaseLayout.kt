@@ -19,10 +19,10 @@ import cn.lxyhome.jetpackcamerax.R
 @SuppressLint("ViewConstructor")
 class BaseLayout(context: Context?, vararg onclicks: (() -> Unit)?) : LinearLayout(context),View.OnClickListener {
 
-     lateinit var img_back:ImageView
-     lateinit var img_more:ImageView
-     lateinit var tv_title:TextView
-    var ll_header_left:LinearLayout
+    lateinit var img_back: ImageView
+    lateinit var img_more: ImageView
+    lateinit var tv_title: TextView
+    var ll_header_left: LinearLayout
 
     private lateinit var onclicks:Array<out (()->Unit)?>
     init {
@@ -54,6 +54,11 @@ class BaseLayout(context: Context?, vararg onclicks: (() -> Unit)?) : LinearLayo
             img_more.visibility = View.GONE
         }
     }
+
+    fun setOnClicks(vararg onclicks: (() -> Unit)?){
+        this.onclicks = onclicks
+    }
+
 
     fun setTitle(title: String?) {
         title?.run {

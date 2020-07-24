@@ -23,13 +23,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.UserInfoActivity"></activity>
-        <!--    关闭WorkManager默认初始化，使用自定义初始化    -->
+        <activity android:name=".activity.PagingTsetActivity"></activity>
+        <activity android:name=".activity.UserInfoActivity" /> <!-- 关闭WorkManager默认初始化，使用自定义初始化 -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"
-            tools:node="remove"
-            android:exported="false" />
+            android:exported="false"
+            tools:node="remove" />
 
         <service
             android:name=".service.BackService"

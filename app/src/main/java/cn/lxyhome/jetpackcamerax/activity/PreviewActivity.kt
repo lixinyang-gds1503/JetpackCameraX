@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import cn.lxyhome.jetpackcamerax.R
@@ -46,7 +47,8 @@ class PreviewActivity : AppCompatActivity() {
         }, ContextCompat.getMainExecutor(this))
 
 
-        preview.setSurfaceProvider(tv_preview.previewSurfaceProvider)
+        tv_preview.preferredImplementationMode = PreviewView.ImplementationMode.TEXTURE_VIEW
+        preview.setSurfaceProvider(tv_preview.createSurfaceProvider())
         imageAnalysis.setAnalyzer(ContextCompat.getMainExecutor(this),ImageAnalysis.Analyzer {
             Log.i("PreviewActivity",it.cropRect.toString() + it.format + it.height + it.image.toString()+ it.planes)
             TargetRotation = it.imageInfo?.rotationDegrees;

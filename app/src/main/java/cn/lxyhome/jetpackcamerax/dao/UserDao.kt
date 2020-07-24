@@ -1,6 +1,7 @@
 package cn.lxyhome.jetpackcamerax.dao
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import cn.lxyhome.jetpackcamerax.dao.entity.UserInfo
 
@@ -33,5 +34,8 @@ interface UserDao {
 
     @Query("SELECT * FROM User WHERE username = :loginName")
     fun queryWhereForUser(loginName: String): List<UserInfo>
+
+    @Query("SELECT * FROM User ORDER BY _id DESC")
+    fun quereUserById(): DataSource.Factory<Int, UserInfo>
 
 }

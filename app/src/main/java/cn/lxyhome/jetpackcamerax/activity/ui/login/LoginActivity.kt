@@ -38,8 +38,8 @@ class LoginActivity : BaseActivity() {
             toast("insert success")
             if (it.obj!= null) {
                 val infos:List<UserInfo> = it.obj as List<UserInfo>
-                startActivity<UserInfoActivity> {
-                    Intent().putExtra("username",infos[0])
+                startActivity<UserInfoActivity> {i->
+                    i.putExtra("username",infos[0])
                 }
                 finish()
             }
