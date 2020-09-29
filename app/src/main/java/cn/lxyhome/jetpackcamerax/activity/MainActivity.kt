@@ -139,7 +139,8 @@ class MainActivity : BaseActivity() {
         }
 
         btn_livedata_test.setOnClickListener {
-            startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
+          //  startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
+            startActivity(Intent(this@MainActivity, ESFStoreDetailActivity::class.java))
         }
         btn_user.setOnClickListener {
             startActivity<LoginActivity> {

@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "User",indices = [Index(name = "index_name",value = ["username"],unique = true)])
 @database
-class UserInfo(
+data class UserInfo(
     @PrimaryKey(autoGenerate = true)
     var _id:Int,
     @ColumnInfo(name = "username")

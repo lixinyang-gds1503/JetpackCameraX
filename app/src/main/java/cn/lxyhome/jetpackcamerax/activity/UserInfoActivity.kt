@@ -28,7 +28,7 @@ class UserInfoActivity : BaseActivity() {
         val userinfo = intent.getParcelableExtra<UserInfo>("username")
         userinfo?.let {
             mModel.setValue(it)
-            observer.onChanged(it)
+          //  observer.onChanged(it)
         }
 
         more_OnClick = {
