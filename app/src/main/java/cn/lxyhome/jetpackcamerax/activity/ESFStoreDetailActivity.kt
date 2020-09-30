@@ -4,18 +4,14 @@ import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import cn.lxyhome.jetpackcamerax.R
+import cn.lxyhome.jetpackcamerax.fagment.esftest.FristFragment
+import cn.lxyhome.jetpackcamerax.fagment.esftest.SecondFragment
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kotlinx.android.synthetic.main.activity_esf_store_detail.*
@@ -23,18 +19,47 @@ import kotlin.math.abs
 
 
 class ESFStoreDetailActivity : AppCompatActivity() {
-    val arraylist  = arrayOf("123","fafdsf","sdfdsf","sfddsf","fdgfdg",
-        "strhh","sgjsjg","gjdhj","stjsf","hsgfhgfs","ewtrg","23423","fsghgfs","fdgfdg","gfdgdg",
-        "sdfhtrsh","fdgdnbrtj","afdg3wg","agabadfh","sdeahre","dfbfdah","3rqf","hjtrjha","ar3adfb",
-        "sdfsahaeh","bzberh","dsgeaa","agdfbdaf")
+
     var mHeigth:Int = 0
+    val fristFragment  = FristFragment()
+    val secondFragment = SecondFragment()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         window.statusBarColor = Color.TRANSPARENT
         setContentView(R.layout.activity_esf_store_detail)
-        initRecycleView()
         initStateBar()
+        initFragment()
+    }
+
+    private fun initFragment() {
+
+        val beginTransaction = supportFragmentManager.beginTransaction()
+        beginTransaction.add(R.id.fl_container,fristFragment).show(fristFragment)
+        beginTransaction.add(R.id.fl_container,secondFragment).hide(secondFragment)
+        beginTransaction.commitAllowingStateLoss()
+        findViewById<View>(R.id.tv_frist).setOnClickListener{
+            swicthFragemnt(1)
+        }
+        findViewById<View>(R.id.tv_second).setOnClickListener {
+            swicthFragemnt(2)
+        }
+    }
+
+    private fun swicthFragemnt(i: Int) {
+        val beginTransaction = supportFragmentManager.beginTransaction()
+        when(i){
+            1->{
+                beginTransaction.show(fristFragment)
+                beginTransaction.hide(secondFragment)
+                beginTransaction.commitAllowingStateLoss()
+            }
+            else->{
+                beginTransaction.hide(fristFragment)
+                beginTransaction.show(secondFragment)
+                beginTransaction.commitAllowingStateLoss()
+            }
+        }
     }
 
     private fun initStateBar() {
@@ -106,38 +131,4 @@ class ESFStoreDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun initRecycleView() {
-        val findViewById = findViewById<RecyclerView>(R.id.fl_container)
-        findViewById.layoutManager = LinearLayoutManager(this,
-            RecyclerView.VERTICAL,false)
-        findViewById.adapter = object : RecyclerView.Adapter<VH>() {
-            override fun onCreateViewHolder(
-                parent: ViewGroup,
-                viewType: Int
-            ): VH {
-                return VH(LayoutInflater.from(this@ESFStoreDetailActivity).inflate(android.R.layout.activity_list_item,parent,false))
-            }
-
-            override fun getItemCount(): Int {
-                return arraylist.size
-            }
-
-            override fun onBindViewHolder(holder: VH, position: Int) {
-                holder.onBind(position)
-            }
-
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            findViewById.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-
-            }
-        }
-    }
-
-    inner class VH(val view:View):RecyclerView.ViewHolder(view) {
-        fun onBind(position: Int) {
-            view.findViewById<TextView>(android.R.id.text1).text = arraylist[position]
-        }
-
-    }
 }
