@@ -21,6 +21,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/ctlayout"
                 android:layout_width="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 android:layout_height="match_parent">
@@ -46,7 +47,6 @@
 
 
             <TextView
-                app:layout_collapseMode="pin"
                 android:text="no Scroll"
                 android:textSize="15sp"
                 android:gravity="center"
@@ -69,6 +69,7 @@
         android:id="@+id/rl_bar_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
