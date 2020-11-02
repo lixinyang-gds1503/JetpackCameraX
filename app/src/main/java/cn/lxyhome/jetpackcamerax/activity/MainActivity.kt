@@ -61,6 +61,10 @@ class MainActivity : BaseActivity() {
             img_insert_user.setImageUrl(it.imgurl,"user.png")
             btn_user.text = it.btnText
         }
+        list[4].let {
+            img_menulist.setImageUrl(it.imgurl,"menu.png")
+            btn_menulist.text = it.btnText
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,7 +105,7 @@ class MainActivity : BaseActivity() {
 
     private fun initView() {
         ll_parent.post {
-            val childheighti = (ll_parent.height -ll_parent.paddingTop - ll_parent.paddingBottom)/ 4f;
+        /*    val childheighti = (ll_parent.height -ll_parent.paddingTop - ll_parent.paddingBottom)/ 4f;
             ll_main.layoutParams.height = childheighti.toInt()
             ll_camera.layoutParams.height = childheighti.toInt()
             ll_card_insert.layoutParams.height = childheighti.toInt()
@@ -114,11 +118,12 @@ class MainActivity : BaseActivity() {
          //   btn_insert.layoutParams.height = childheighti *2/7
             img_insert_user.layoutParams.height = (childheighti*5f/7).toInt()
           //  btn_user.layoutParams.height = childheighti *2/7
-            ll_parent.requestLayout()
+            ll_parent.requestLayout()*/
             ll_main.visibility = View.INVISIBLE
             ll_camera.visibility = View.INVISIBLE
             ll_card_insert.visibility = View.INVISIBLE
             ll_user_insert.visibility = View.INVISIBLE
+            ll_menulist.visibility = View.INVISIBLE
             startAnimator(ll_main)
             val t = Handler()
             t.postDelayed(object : TimerTask() {
@@ -136,13 +141,25 @@ class MainActivity : BaseActivity() {
                     startAnimator(ll_user_insert)
                 }
             },700L)
+
+            t.postDelayed(object : TimerTask() {
+                override fun run() {
+                    startAnimator(ll_menulist)
+                }
+            },900L)
+        }
+
+        btn_menulist.setOnClickListener{
+            startActivity<MenuListActivity> {
+                Intent()
+            }
         }
 
         btn_livedata_test.setOnClickListener {
-          //  startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
-            startActivity(Intent(this@MainActivity, ESFStoreDetailActivity::class.java))
+            startActivity(Intent(this@MainActivity, TabMainActivity::class.java))
+          //  startActivity(Intent(this@MainActivity, ESFStoreDetailActivity::class.java))
         }
-        btn_user.setOnClickListener {
+        ll_user_insert.setOnClickListener {
             startActivity<LoginActivity> {
                 Intent()
             }

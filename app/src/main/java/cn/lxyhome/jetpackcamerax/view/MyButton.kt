@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner
  *""
  *
  */
-class MyButton : Button,DefaultLifecycleObserver {
+class MyButton : androidx.appcompat.widget.AppCompatButton,DefaultLifecycleObserver {
     private val TAG = MyButton::class.java.simpleName
     constructor(context: Context?):super(context)
     constructor(context: Context?,arts: AttributeSet?):super(context,arts)

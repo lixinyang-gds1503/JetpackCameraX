@@ -20,6 +20,7 @@ class MainActivityModel:ViewModel() {
         list.add(MainEntity("http://pic1.win4000.com/wallpaper/2017-11-10/5a054ff030718.jpg","相机"))
         list.add(MainEntity("http://img4.imgtn.bdimg.com/it/u=3396849968,2501703168&fm=26&gp=0.jpg","卡片"))
         list.add(MainEntity("http://img3.imgtn.bdimg.com/it/u=2221945056,112347075&fm=26&gp=0.jpg","用户"))
+        list.add(MainEntity("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1603881186750&di=e076bc58a6e9efb40a3d88529ee36f5d&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180608%2F6a3aa55f29134f6c9747007b3ec42215.jpeg","列表"))
         value = list
     }
 

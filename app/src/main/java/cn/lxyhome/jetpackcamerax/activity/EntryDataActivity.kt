@@ -43,7 +43,7 @@ class EntryDataActivity : BaseActivity() {
             if (queryWhereForCard != null) {
                 mQuereWhereForCard = queryWhereForCard
                 mObserve = Observer<CardInfo> {
-                    it.run {
+                    it?.run {
                         val a = if (newCardinfo.title.isNotNullorEmpty()) {
                             this.title = newCardinfo.title
                             true

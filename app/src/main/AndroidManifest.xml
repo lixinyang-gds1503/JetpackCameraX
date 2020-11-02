@@ -23,7 +23,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ESFStoreDetailActivity"></activity>
+        <activity android:name=".activity.MenuListActivity"></activity>
+        <activity android:name=".activity.DataStoreActivity" />
+        <activity android:name=".activity.ESFStoreDetailActivity" />
         <activity android:name=".activity.PagingTsetActivity" />
         <activity android:name=".activity.UserInfoActivity" /> <!-- 关闭WorkManager默认初始化，使用自定义初始化 -->
         <provider

@@ -123,6 +123,8 @@ class ESFStoreDetailActivity : AppCompatActivity() {
         }
         return 0
     }
+
+
     private fun AppBarLayout.isAppBarScorll(boolean: Boolean) {
         val view = this.getChildAt(0)
         val layoutParams = view.layoutParams as AppBarLayout.LayoutParams

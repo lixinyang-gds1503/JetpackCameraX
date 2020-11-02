@@ -43,7 +43,8 @@ class PagingVH(item:View) : RecyclerView.ViewHolder(item) {
 
     fun onbind(position: Int, item: UserInfo?) {
         item?.apply {
-            itemView.findViewById<TextView>(R.id.tv_content).text= this.loginName?:this.nickName?:"no data"
+            val text: CharSequence = this.loginName ?: this.nickName ?: "no data"
+            itemView.findViewById<TextView>(R.id.tv_content).text= text
         }
     }
 

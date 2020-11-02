@@ -160,6 +160,13 @@ dependencies {
     implementation 'androidx.emoji:emoji:1.0.0'
 
 
+    // Preferences DataStore
+    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha02"
+
+    // Proto DataStore
+    implementation "androidx.datastore:datastore-core:1.0.0-alpha02"
+
+
 }
 
 

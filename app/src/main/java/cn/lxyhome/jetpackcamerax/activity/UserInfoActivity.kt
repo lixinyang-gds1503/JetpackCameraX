@@ -36,6 +36,13 @@ class UserInfoActivity : BaseActivity() {
                 Intent()
             }
         }
+        back_upOnClick = {
+            startActivity<MainActivity> {
+                Intent()
+            }
+            finish()
+           // super.back_upOnClick()
+        }
         baseLayout.setOnClicks(back_upOnClick, more_OnClick)
         mL.setTransitionListener(object :MotionLayout.TransitionListener{
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
