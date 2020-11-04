@@ -21,6 +21,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-noarg:$kotlin_version"
         classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
 
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.8.8'
+
     }
 }
 

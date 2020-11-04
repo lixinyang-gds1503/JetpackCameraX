@@ -12,6 +12,8 @@ apply plugin: 'kotlin-noarg'
 
 apply plugin: 'kotlin-allopen'
 
+apply plugin: 'com.google.protobuf'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
@@ -36,6 +38,17 @@ android {
     }
 
     kotlinOptions { jvmTarget = 1.8 }
+
+    sourceSets {
+        main {
+            proto {
+                srcDir 'src/main/proto'
+                include '**/*.proto'
+            }
+        }
+    }
+
+
 }
 
 
@@ -166,8 +179,31 @@ dependencies {
     // Proto DataStore
     implementation "androidx.datastore:datastore-core:1.0.0-alpha02"
 
+    // protobuf
+    implementation  "com.google.protobuf:protobuf-javalite:3.11.0"
 
 }
+
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.10.0"
+    }
+
+    // Generates the java Protobuf-lite code for the Protobufs in this project. See
+    // https://github.com/google/protobuf-gradle-plugin#customizing-protobuf-compilation
+    // for more information.
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
+
 
 
 noArg {
