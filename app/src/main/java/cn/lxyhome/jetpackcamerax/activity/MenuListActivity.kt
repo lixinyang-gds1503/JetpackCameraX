@@ -17,7 +17,6 @@ import cn.lxyhome.jetpackcamerax.activity.ui.login.LoginActivity
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
 import cn.lxyhome.jetpackcamerax.util.startActivity
 import cn.lxyhome.jetpackcamerax.viewmodel.MenuListModel
-import kotlinx.android.synthetic.main.activity_esf_store_detail.*
 import java.util.ArrayList
 
 class MenuListActivity : BaseActivity(),View.OnClickListener {

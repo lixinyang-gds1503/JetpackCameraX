@@ -1,6 +1,7 @@
 package cn.lxyhome.jetpackcamerax.util
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
@@ -24,6 +25,11 @@ import java.io.FileOutputStream
  *""
  *
  */
+
+fun dip2px(context: Context, dpValue: Float): Int {
+    val scale = context.resources.displayMetrics.density
+    return (dpValue * scale + 0.5f).toInt()
+}
 
 
 fun BaseActivity.toast(message: String) {
