@@ -16,6 +16,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import kotlinx.android.synthetic.main.activity_esf_store_detail.*
 import kotlin.math.abs
+import kotlin.time.minutes
 
 
 class ESFStoreDetailActivity : AppCompatActivity() {
@@ -80,20 +81,20 @@ class ESFStoreDetailActivity : AppCompatActivity() {
             when {
                 verticalOffset == 0 -> { //打开
                     val background = mRelativeLayout.background as ColorDrawable
-                    background.alpha = 0
+                    background.mutate().alpha = 0
                     setAndroidNativeLightStatusBar(this,false)
                 }
                 abs(verticalOffset) >= appBarLayout.totalScrollRange -> { //折叠
                     val background = mRelativeLayout.background as ColorDrawable
-                    background.alpha =255
+                    background.mutate().alpha =255
                     setAndroidNativeLightStatusBar(this,true)
                 }
                 else -> {
                     val num: Float = (abs(verticalOffset).toFloat() / appBarLayout.totalScrollRange)
                     setAndroidNativeLightStatusBar(this,true)
                     val background = mRelativeLayout.background as ColorDrawable
-                    background.alpha = (255* num).toInt()
-                    //                    中间
+                    background.mutate().alpha = (255* num).toInt()
+                    //                   中 间
                 }
             }
         })

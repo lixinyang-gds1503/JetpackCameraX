@@ -21,6 +21,7 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
     protected val baseLayout:BaseLayout by lazy {
         BaseLayout(this, back_upOnClick,more_OnClick)
     }
+    var mContext:Context? = null
 
     open var back_upOnClick = {
       val key =   onKeyDown(
@@ -46,6 +47,7 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mContext = this
         setContentView(baseLayout)
     }
     fun getLifecycleinfo(): Lifecycle {

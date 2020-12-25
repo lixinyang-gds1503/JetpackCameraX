@@ -71,6 +71,9 @@
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RecycleViewActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

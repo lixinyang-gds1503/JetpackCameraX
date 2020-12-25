@@ -14,10 +14,10 @@ import androidx.lifecycle.LifecycleOwner
  *
  */
 class MyButton : androidx.appcompat.widget.AppCompatButton,DefaultLifecycleObserver {
-    private val TAG = MyButton::class.java.simpleName
-    constructor(context: Context?):super(context)
-    constructor(context: Context?,arts: AttributeSet?):super(context,arts)
-    constructor(context: Context?,arts: AttributeSet?,defStyleAttr:Int):super(context,arts,defStyleAttr)
+
+    constructor(context: Context):super(context)
+    constructor(context: Context,arts: AttributeSet?):super(context,arts)
+    constructor(context: Context,arts: AttributeSet?,defStyleAttr:Int):super(context,arts,defStyleAttr)
 
     override fun onCreate(owner: LifecycleOwner) {
         Log.i(TAG,"MyButton-onCreate")
@@ -41,5 +41,9 @@ class MyButton : androidx.appcompat.widget.AppCompatButton,DefaultLifecycleObser
 
     override fun onPause(owner: LifecycleOwner) {
         Log.i(TAG,"MyButton-onPause")
+    }
+
+    companion object{
+        const val TAG = "MyButton"
     }
 }
