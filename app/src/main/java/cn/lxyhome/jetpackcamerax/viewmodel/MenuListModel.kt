@@ -15,7 +15,7 @@ class MenuListModel:ViewModel() {
         it.value = arrayListOf("cn.lxyhome.jetpackcamerax.activity.DataStoreActivity"
             ,"cn.lxyhome.jetpackcamerax.activity.PagingTsetActivity"
             ,"cn.lxyhome.jetpackcamerax.activity.ESFStoreDetailActivity","cn.lxyhome.jetpackcamerax.activity.PorterDuffActivity",
-            "cn.lxyhome.jetpackcamerax.activity.RecycleViewActivity")
+            "cn.lxyhome.jetpackcamerax.activity.RecycleViewActivity","cn.lxyhome.jetpackcamerax.activity.ConstraintLayoutActivity")
     }
     val mLiveData:LiveData<ArrayList<String>> = innerLiveData
 }

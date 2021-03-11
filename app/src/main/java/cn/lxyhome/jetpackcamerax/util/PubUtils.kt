@@ -26,6 +26,11 @@ import java.io.FileOutputStream
  *
  */
 
+fun loge(message: String?) {
+    Log.e("JetPack",message+"")
+}
+
+
 fun dip2px(context: Context, dpValue: Float): Int {
     val scale = context.resources.displayMetrics.density
     return (dpValue * scale + 0.5f).toInt()
@@ -74,26 +79,41 @@ fun ImageView.setImageUrl(url: String?, name:String) {
             .asBitmap()
             .error(R.mipmap.ic_launcher)
             .placeholder(R.mipmap.ic_launcher)
-            .listener(object : RequestListener<String , Bitmap> {
-                override fun onException(p0: Exception?, p1: String?, p2: Target<Bitmap>?, p3: Boolean): Boolean {
-                    val localfile = File(context.filesDir.toString()+File.separator+MAIN_IMAGEURL_DIR,name)
+            .listener(object : RequestListener<String, Bitmap> {
+                override fun onException(
+                    p0: Exception?,
+                    p1: String?,
+                    p2: Target<Bitmap>?,
+                    p3: Boolean
+                ): Boolean {
+                    val localfile =
+                        File(context.filesDir.toString() + File.separator + MAIN_IMAGEURL_DIR, name)
+                    Log.i("PubUtils-onException", "local:$name")
                     if (localfile.exists()) {
-                        Log.i("PubUtils", "local:$name")
                         Glide.with(context).load(localfile).into(this@setImageUrl)
+                    } else {
+                      //  this@setImageUrl.setImageUrl(url, name)
                     }
-                  return  true
+                    return true;
                 }
 
-                override fun onResourceReady(p0: Bitmap?, p1: String?, p2: Target<Bitmap>?, p3: Boolean, p4: Boolean): Boolean {
-                    val localfile = File(context.filesDir.toString()+File.separator+ MAIN_IMAGEURL_DIR,name)
+                override fun onResourceReady(
+                    p0: Bitmap?,
+                    p1: String?,
+                    p2: Target<Bitmap>?,
+                    p3: Boolean,
+                    p4: Boolean
+                ): Boolean {
+                    val localfile =
+                        File(context.filesDir.toString() + File.separator + MAIN_IMAGEURL_DIR, name)
                     if (localfile.exists()) {
                         Log.i("PubUtils", "local:$name")
                         Glide.with(context).load(localfile).into(this@setImageUrl)
-                    }else{
-                        Log.i("PubUtils","network")
+                    } else {
+                        Log.i("PubUtils", "network")
                         this@setImageUrl.setImageBitmap(p0)
                     }
-                    return saveFileToLocal(p0,name)
+                    return saveFileToLocal(p0, name)
                 }
             })
             .into(this)

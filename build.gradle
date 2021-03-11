@@ -5,9 +5,11 @@ buildscript {
     ext.gradle_version = "3.6.2"
      //ext.camerax_version = "1.0.0-beta01"
     repositories {
-        google()
+        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
         jcenter()
-        
+        google()
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
@@ -28,9 +30,10 @@ buildscript {
 
 allprojects {
     repositories {
-        google()
+        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
         jcenter()
-        
+        google()
     }
 }
 

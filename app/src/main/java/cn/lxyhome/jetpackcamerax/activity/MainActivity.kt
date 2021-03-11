@@ -173,7 +173,7 @@ class MainActivity : BaseActivity() {
         img_main.setOnClickListener {
             NotifiManager.notifi(this@MainActivity)
         }
-        //todo 权限管理
+        // 权限管理
         btn_camera.setOnClickListener {
             val rxp = RxPermissions(this@MainActivity)
             rxp.request(
