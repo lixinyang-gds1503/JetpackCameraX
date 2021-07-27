@@ -62,7 +62,7 @@ class SecondFragment : Fragment() {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             findViewById?.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-
+                    //todo
             }
         }
     }
