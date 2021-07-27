@@ -1,6 +1,7 @@
 package cn.lxyhome.jetpackcamerax.activity
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.paging.LivePagedListBuilder

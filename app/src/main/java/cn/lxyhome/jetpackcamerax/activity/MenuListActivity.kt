@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,6 +39,7 @@ class MenuListActivity : BaseActivity(),View.OnClickListener {
         list.adapter = mAdapter()
         list.addItemDecoration(DividerItemDecoration(this,LinearLayout.VERTICAL))
         val mMenuListModel = ViewModelProvider(this).get(MenuListModel::class.java)
+
         mMenuListModel.mLiveData.observe(this){ data->
             list.adapter?.also {
                 val mAdapter = it as mAdapter

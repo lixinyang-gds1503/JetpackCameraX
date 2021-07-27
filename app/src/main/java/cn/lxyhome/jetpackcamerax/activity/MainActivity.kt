@@ -48,6 +48,7 @@ class MainActivity : BaseActivity() {
         list[0].let {
             img_main.setImageUrl(it.imgurl,"main.png")
             btn_livedata_test.text = it.btnText
+            1.toFloat()
         }
         list[1].let {
             img_camera.setImageUrl(it.imgurl,"camera.png")

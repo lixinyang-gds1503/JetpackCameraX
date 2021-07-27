@@ -51,7 +51,7 @@ class BackDialog(val function:(Boolean)->Unit):DialogFragment() {
             val view = layoutInflater.inflate(R.layout.back_dialog_view,null)
             init(view)
             model = ViewModelProvider(this).get(BackDialogModel::class.java)
-            model.DataModel.observe(activity!!, Observer {
+            model.DataModel.observe(requireActivity(), Observer {
                 img_back_src.setImageUrl(it.Imagurl,"backimg.png")
                 tv_close.text = it.btnClose
                 tv_enter.text = it.btnEnter

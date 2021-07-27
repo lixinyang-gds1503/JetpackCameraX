@@ -19,7 +19,7 @@ android {
     buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "cn.lxyhome.jetpackcamerax"
-        minSdkVersion 23
+        minSdkVersion 25
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -65,6 +65,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'com.tencent.bugly:crashreport:3.1.0'
+   // implementation 'com.squareup.okhttp:okhttp:2.7.5'
+    implementation 'com.squareup.okhttp3:okhttp:4.7.2'
 
 
     /*  // CameraX core library using the camera2 implementation
@@ -84,12 +86,13 @@ dependencies {
 
     // CameraX core library using the camera2 implementation
     //   def camerax_version = "1.0.0-alpha10"
-    def camerax_version = "1.0.0-beta06"
+    def camerax_version = "1.0.0-rc02"
+    implementation "androidx.camera:camera-core:${camerax_version}"
     implementation "androidx.camera:camera-camera2:${camerax_version}"
     // If you want to use the CameraX View class
-    implementation "androidx.camera:camera-view:1.0.0-alpha13"
+    implementation "androidx.camera:camera-view:1.0.0-alpha19"
     // If you want to use the CameraX Extensions library
-    implementation "androidx.camera:camera-extensions:1.0.0-alpha13"
+    implementation "androidx.camera:camera-extensions:1.0.0-alpha19"
     // If you want to use the CameraX Lifecycle library
     implementation "androidx.camera:camera-lifecycle:${camerax_version}"
 

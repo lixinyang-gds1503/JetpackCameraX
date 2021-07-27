@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcdut
+        android:shortcutId="shortcutIdOne"
+        android:enabled="true"
+        android:icon="@drawable/back_up"
+        android:shortcutShortLabel="@string/shortcutShortLabel"
+        android:shortcutLongLabel="@string/shortcutLongLabel"
+        android:shortcutDisabledMessage="@string/shortcutDisabledMessage">
+
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="cn.lxyhome.jetpackcamerax.activity"
+            android:targetClass="cn.lxyhome.jetpackcamerax.activity.MotionLayoutActivity" />
+        <categories android:name="android.shortcut.conversation"/>
+
+    </shortcdut>
+</shortcuts>

@@ -41,7 +41,7 @@ class PorterDuffDialog(val title:String,val mode:PorterDuff.Mode):DialogFragment
 
     override fun onStart() {
         super.onStart()
-        dialog!!.window!!.setLayout(dip2px(activity!!,300f),dip2px(activity!!,300f))
+        dialog!!.window!!.setLayout(dip2px(requireActivity(),300f),dip2px(requireActivity(),300f))
     }
 
 }

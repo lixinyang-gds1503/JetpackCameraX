@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
@@ -16,6 +17,7 @@ import cn.lxyhome.jetpackcamerax.util.toast
 import cn.lxyhome.jetpackcamerax.viewmodel.EntryDataActivityModel
 import kotlinx.android.synthetic.main.activity_entry.*
 import kotlinx.android.synthetic.main.activity_main.btn_insert
+import kotlinx.coroutines.flow.Flow
 
 class EntryDataActivity : BaseActivity() {
 
@@ -76,6 +78,9 @@ class EntryDataActivity : BaseActivity() {
 
         }else{
             val l = JetpackApplication.getCardDao()?.insertCard(newCardinfo)
+            //Flow使用
+            val queryWhereForCard:Flow<List<CardInfo>>? = JetpackApplication.getCardDao()?.queryWhereForCard("")
+            queryWhereForCard?.asLiveData()
             if (l!=null && l>0L) {
                 Toast.makeText(this@EntryDataActivity,"insert succes",Toast.LENGTH_LONG).show()
             }else{

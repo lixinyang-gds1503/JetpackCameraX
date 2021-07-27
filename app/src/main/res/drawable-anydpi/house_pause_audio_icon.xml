@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <path
+        android:fillAlpha="0.5"
+        android:fillColor="@android:color/white"
+        android:pathData="M0,24a24,24 0 0 1 48,0a24,24 0 0 1 -48,0z" />
+
+    <path
+        android:fillAlpha="0.8"
+        android:name="p"
+        android:fillColor="#297EFF"
+        android:pathData="@string/play" />
+</vector>

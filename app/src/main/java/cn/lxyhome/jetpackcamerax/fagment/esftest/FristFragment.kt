@@ -34,7 +34,7 @@ class FristFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(FristViewModel::class.java)
-        viewModel.listData.observe(activity!!, Observer{
+        viewModel.listData.observe(requireActivity(), Observer{
             initRecycleView(it)
         })
 

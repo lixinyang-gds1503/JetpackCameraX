@@ -1,6 +1,10 @@
 package cn.lxyhome.jetpackcamerax.activity
 
 import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
+import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -51,6 +55,15 @@ class LogoFullscreenActivity : AppCompatActivity() {
             }
             finish()
         }
+
+        val systemService = getSystemService(ShortcutManager::class.java)
+        val build = ShortcutInfo.Builder(this, "id1")
+            .setShortLabel("shortLabel")
+            .setLongLabel("Longlabel")
+            .setIcon(Icon.createWithResource(this, R.drawable.back_up))
+            .setIntent(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.baidu.com")))
+            .build()
+        systemService.dynamicShortcuts = listOf(build)
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {

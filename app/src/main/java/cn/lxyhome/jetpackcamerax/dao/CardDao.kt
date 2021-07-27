@@ -3,6 +3,7 @@ package cn.lxyhome.jetpackcamerax.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import cn.lxyhome.jetpackcamerax.dao.entity.CardInfo
+import kotlinx.coroutines.flow.Flow
 
 /**
  *   <这个类的说明>
@@ -32,6 +33,6 @@ interface CardDao {
     fun queryWhereForCard(id: Int): LiveData<CardInfo>
 
     @Query("SELECT * FROM Card WHERE title= :title")
-    fun queryWhereForCard(title: String): List<CardInfo>
+    fun queryWhereForCard(title: String): Flow<List<CardInfo>>
 
 }

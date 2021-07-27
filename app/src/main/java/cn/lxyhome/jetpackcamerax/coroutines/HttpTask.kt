@@ -1,14 +1,9 @@
 package cn.lxyhome.jetpackcamerax.coroutines
 
-import android.content.Context
 import android.view.View
 import androidx.lifecycle.LifecycleCoroutineScope
 import cn.lxyhome.jetpackcamerax.util.loge
-import io.reactivex.functions.Cancellable
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.consumeEach
-import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.selects.select
 import java.io.Closeable
 import java.util.concurrent.Executors
 import kotlin.coroutines.Continuation
@@ -118,7 +113,7 @@ private class SafeCoroutineSpose(val context: CoroutineContext,var errorListener
 fun getHttpTask(
     lifecycleScope: LifecycleCoroutineScope,
     errorListener: CoroutineSpoceErrorListener? = null,
-    timeoutCall: () -> Unit,
+    timeoutCall: Unit,
     suspendCall: suspend CoroutineScope.() -> Unit
 ) {
     val content = lifecycleScope.coroutineContext + SupervisorJob() + ExceptionHadler(errorListener)
@@ -133,7 +128,7 @@ fun getHttpTask(
         if (withTimeoutOrNull == null) { //表示超时了
             launch(UI) { //主线程调用超时回调
                 loge("${Thread.currentThread().name}  ${content[Job]}")
-                timeoutCall()
+                timeoutCall
                /* Executors.newSingleThreadExecutor().asCoroutineDispatcher().use {
 
                 }*/
