@@ -2,6 +2,7 @@ package cn.lxyhome.jetpackcamerax.activity
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -25,7 +26,7 @@ class EntryDataActivity : BaseActivity() {
     private lateinit var mUpdataCardInfo: CardInfo
     private lateinit var mQuereWhereForCard:LiveData<CardInfo>
     private lateinit var  mObserve:Observer<CardInfo>
-    private val mhandler = Handler(Handler.Callback {
+    private val mhandler = Handler(Looper.getMainLooper(),Handler.Callback {
         if (it.what ==1) {
             mObserve?.let {o->
                 mQuereWhereForCard.removeObserver(o)

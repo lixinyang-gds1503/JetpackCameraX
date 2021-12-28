@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.lxyhome.jetpackcamerax.R
+import cn.lxyhome.jetpackcamerax.coroutines.CoroutinesUtils
 
 
 class SecondFragment : Fragment() {

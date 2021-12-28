@@ -9,3 +9,13 @@ message UserPreferences {
       int32 age = 3;
       string phone = 4;
 }
+
+message TestEntity{
+    int32 id = 1;
+    repeated UserPreferences user_preferences = 2;
+    enum Tips{
+        ONE = 0;
+        TWO = 1;
+    }
+    Tips tips = 3;
+}

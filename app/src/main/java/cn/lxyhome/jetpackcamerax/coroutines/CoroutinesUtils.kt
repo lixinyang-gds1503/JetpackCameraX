@@ -3,6 +3,7 @@ package cn.lxyhome.jetpackcamerax.coroutines
 import android.content.Context
 import android.graphics.Bitmap
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.channels.Channel
 import kotlin.concurrent.thread
 import kotlin.coroutines.*
 
@@ -41,4 +42,12 @@ object CoroutinesUtils {
 
             }
         })
+
+    /**
+     * 获取通道
+     */
+    fun <T> getChannel():Channel<T> {
+        return Channel()
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.OnLifecycleEvent
@@ -48,6 +49,7 @@ import cn.lxyhome.jetpackcamerax.view.BaseLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mContext = this
+        window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)//安全策略
         setContentView(baseLayout)
     }
     fun getLifecycleinfo(): Lifecycle {
