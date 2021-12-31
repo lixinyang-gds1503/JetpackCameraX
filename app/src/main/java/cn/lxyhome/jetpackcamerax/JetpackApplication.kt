@@ -1,9 +1,11 @@
 package cn.lxyhome.jetpackcamerax
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
+import android.os.Bundle
 import android.os.Process
 import androidx.camera.camera2.Camera2Config
 import androidx.camera.core.CameraXConfig
@@ -14,6 +16,7 @@ import cn.lxyhome.jetpackcamerax.dao.UserDao
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase
 import cn.lxyhome.jetpackcamerax.dao.database.AppDatabase2
 import cn.lxyhome.jetpackcamerax.notifi.NotifiManager
+import cn.lxyhome.jetpackcamerax.util.toast
 
 /**
  *   <这个类的说明>
@@ -39,6 +42,38 @@ class JetpackApplication:Application(),CameraXConfig.Provider {
             AppConfig.setConfigs(AppDBConfig(applicationContext))
         }
         NotifiManager.createNotificationChannel()
+        //监听activity的生命周期
+        this.registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
+            override fun onActivityCreated(
+                activity: Activity,
+                savedInstanceState: Bundle?
+            ) {//TODOLXY: lixinyang  Not yet implemented
+            }
+
+            override fun onActivityStarted(activity: Activity) {//TODOLXY: lixinyang  Not yet implemented
+            }
+
+            override fun onActivityResumed(activity: Activity) {//TODOLXY: lixinyang  Not yet implemented
+            }
+
+            override fun onActivityPaused(activity: Activity) {//TODOLXY: lixinyang  Not yet implemented
+            }
+
+            override fun onActivityStopped(activity: Activity) {//TODOLXY: lixinyang  Not yet implemented
+                if (!activity.isFinishing) {
+                    toast(activity.javaClass.simpleName)
+                }
+            }
+
+            override fun onActivitySaveInstanceState(
+                activity: Activity,
+                outState: Bundle
+            ) {//TODOLXY: lixinyang  Not yet implemented
+            }
+
+            override fun onActivityDestroyed(activity: Activity) {//TODOLXY: lixinyang  Not yet implemented
+            }
+        })
     }
 
 

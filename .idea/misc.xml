@@ -10,9 +10,13 @@
       <map>
         <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_constraint_layout.xml" value="0.232421875" />
         <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_data_store.xml" value="0.22902232486528099" />
+        <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_gallery.xml" value="0.20069444444444445" />
         <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_logo_fullscreen.xml" value="0.232421875" />
+        <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_preview.xml" value="0.20069444444444445" />
+        <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_recycleview.xml" value="0.20069444444444445" />
         <entry key="..\:/JetpackCameraX/app/src/main/res/layout/activity_tab_main.xml" value="0.3092425295343989" />
         <entry key="..\:/JetpackCameraX/app/src/main/res/layout/fragment_dashboard.xml" value="0.232421875" />
+        <entry key="..\:/JetpackCameraX/app/src/main/res/layout/gallery_adapter_item.xml" value="0.20069444444444445" />
         <entry key="..\:/JetpackCameraX/app/src/main/res/menu/bottom_nav_menu.xml" value="0.232421875" />
       </map>
     </option>

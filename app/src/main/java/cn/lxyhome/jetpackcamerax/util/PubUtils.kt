@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import cn.lxyhome.jetpackcamerax.JetpackApplication
 import cn.lxyhome.jetpackcamerax.R
 import cn.lxyhome.jetpackcamerax.base.BaseActivity
@@ -144,4 +147,50 @@ private fun saveFileToLocal(bitmap: Bitmap?,filename:String): Boolean {
         e.printStackTrace()
     }
     return true
+}
+
+/**
+ * 删除文件
+ */
+fun File.DeleteAll():Boolean {
+    if (this.exists()) {
+        if (this.isDirectory) {
+            try {
+                this.listFiles()?.forEach {
+                    if (it.isDirectory) {
+                        it.DeleteAll()
+                    } else{
+                        it.delete()
+                    }
+                }
+               return this.delete()
+            } catch (e: Exception) {
+                loge(e.message)
+            }
+        } else{
+           return delete()
+        }
+    }
+    return false
+}
+private val ImagURI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+fun deleteMediaData(file:File) {
+    if (file.isDirectory) {
+        file.listFiles()?.forEach {
+            if (it.isDirectory) {
+                deleteMediaData(it)
+            } else{
+                JetpackApplication.self?.contentResolver?.let { cr->
+                    try {
+                        val url = MediaStore.Images.Media.DATA + "=?"
+                        val delete = cr.delete(ImagURI, url, arrayOf(it.path))
+                        delete
+                    } catch (e: Exception) {
+                        loge(e.message)
+                    }
+                }
+            }
+        }
+    }
+
 }

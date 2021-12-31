@@ -2,37 +2,46 @@ package cn.lxyhome.jetpackcamerax.activity
 
 import android.annotation.SuppressLint
 import android.graphics.*
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
+import android.webkit.MimeTypeMap
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.lifecycle.LifecycleOwner
 import cn.lxyhome.jetpackcamerax.BuildConfig
 import cn.lxyhome.jetpackcamerax.R
+import cn.lxyhome.jetpackcamerax.util.loge
+import cn.lxyhome.jetpackcamerax.util.startActivity
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_preview.*
+import okio.ByteString.Companion.toByteString
 import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
+import kotlin.math.*
 
 @SuppressLint("RestrictedApi")
 class PreviewActivity : AppCompatActivity() {
 
-    private val imageCapture: ImageCapture by lazy {
-        ImageCapture.Builder().setBufferFormat(ImageFormat.YUV_420_888).build()
-    }
-    private val imageAnalysis: ImageAnalysis by lazy {
-      ImageAnalysis.Builder().build()
-  }
-    private val preview: Preview by lazy {
-      //拍摄预览的配置config
-      //  val config = PreviewConfig.Builder().setLensFacing(CameraX.LensFacing.BACK)
-    //    config.setTargetAspectRatio(Rational(1080 ,2048))
-       // Preview(config.build())
-       Preview.Builder().setTargetAspectRatio(AspectRatio.RATIO_16_9).build()
-  }
+    private lateinit var imageCapture: ImageCapture
+    private lateinit var imageAnalysis: ImageAnalysis
+    private lateinit var preview: Preview
+
+    private lateinit var cameraProvider: ProcessCameraProvider
+
+    // Initialize our background executor
+    private val cameraExecutor = Executors.newSingleThreadExecutor()
 
     private var TargetRotation:Int = 0
     val value = object :
@@ -99,9 +108,10 @@ class PreviewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_preview)
-       // val cameraXConfig = Camera2Config.defaultConfig()
-        //cameraXConfig.
-        val future = ProcessCameraProvider.getInstance(this)
+
+        initCameraX()
+
+        /*val future = ProcessCameraProvider.getInstance(this)
 
         future.addListener(Runnable{
             val cameraProvider = future.get()
@@ -117,17 +127,52 @@ class PreviewActivity : AppCompatActivity() {
             Log.i("PreviewActivity",it.cropRect.toString() + it.format + it.height + it.image.toString()+ it.planes)
             TargetRotation = it.imageInfo?.rotationDegrees
             it.close()
-        })
+        })*/
 
 
 
         btn_kacha.setOnClickListener {
-          /*  val fileName = System.currentTimeMillis().toString()
-            val fileFormat = ".jpg"
-            val imageFile = createTempFile(fileName, fileFormat)*/
+           // imageCapture.takePicture(Executors.newSingleThreadExecutor(), value)
 
-            // Store captured image in the temporary file
-            imageCapture.takePicture(Executors.newSingleThreadExecutor(), value)
+            val tempFile = //File(this@PreviewActivity.filesDir.toString()+File.separator+"temp")
+                this.applicationContext.externalMediaDirs.firstOrNull()?.let {
+                    File(it,"JetpackCameraX").apply { mkdirs() }
+                } ?: return@setOnClickListener
+            if (!tempFile.exists()) {
+                tempFile.mkdirs()
+            }
+
+            val imgaFile = File(tempFile,SimpleDateFormat("yyyy-MM-dd-HH-mm-ss-SSS", Locale.CHINA).format(System.currentTimeMillis())+".png")
+            val options = ImageCapture.OutputFileOptions.Builder(imgaFile).setMetadata(
+                ImageCapture.Metadata()).build()
+            imageCapture.takePicture(options,cameraExecutor, object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {//TODOLXY: lixinyang  Not yet implemented
+                    val uri = outputFileResults.savedUri ?: Uri.fromFile(imgaFile)
+                    runOnUiThread {
+                        Glide.with(img_preview.context)
+                            .load(uri)
+                            .into(img_preview)
+                    }
+                    //通知 扫描 相册
+                    MediaScannerConnection.scanFile(
+                        this@PreviewActivity,
+                        arrayOf(uri.toFile().absolutePath),
+                        arrayOf(MimeTypeMap.getSingleton().getMimeTypeFromExtension(uri.toFile().extension))
+                    ){ path,uri->
+                        loge("path:$path||uri$uri")
+                    }
+
+                }
+
+                override fun onError(exception: ImageCaptureException) {//TODOLXY: lixinyang  Not yet implemented
+                    loge(exception.message)
+                }
+
+            })
+        }
+
+        img_preview.setOnClickListener {
+            startActivity<GalleryActivity> {  }
         }
 
        /* CameraX.bindToLifecycle(this as LifecycleOwner, preview*//*, imageAnalysis, imageCapture*//*)
@@ -154,6 +199,70 @@ class PreviewActivity : AppCompatActivity() {
         }*/
 
     }
+
+    private fun initCameraX() {
+        val instance = ProcessCameraProvider.getInstance(this)
+        instance.addListener({
+            cameraProvider = instance.get()
+            bindCamaraCases()
+
+        },ContextCompat.getMainExecutor(this))
+    }
+
+
+    private fun bindCamaraCases() {
+        val windowManager = androidx.window.WindowManager(this)
+        val bounds = windowManager.getCurrentWindowMetrics().bounds
+        val rotation = tv_preview.display.rotation
+        val cameraSelector =
+            CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
+        preview = Preview.Builder()
+            .setTargetAspectRatio(aspectRatio(bounds.width(),bounds.height()))
+            .setTargetRotation(rotation)
+            .build()
+        imageCapture = ImageCapture.Builder()
+            .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+            .setTargetRotation(rotation)
+            .build()
+       imageAnalysis =  ImageAnalysis.Builder()
+           .setTargetAspectRatio(aspectRatio(bounds.width(),bounds.height()))
+            .setTargetRotation(rotation)
+            .build().apply {
+                setAnalyzer(cameraExecutor, object : ImageAnalysis.Analyzer {
+
+                    override fun analyze(image: ImageProxy) {
+                        //image.planes[0].buffer
+                        image.close()
+                    }
+
+                })
+           }
+
+        cameraProvider.unbindAll()
+
+        try {
+            val camera = cameraProvider.bindToLifecycle(
+                this,
+                cameraSelector,
+                preview,
+                imageCapture,
+                imageAnalysis
+            )
+            preview.setSurfaceProvider(tv_preview.surfaceProvider)
+        } catch (e: Exception) {
+        }
+
+    }
+
+
+    private fun aspectRatio(width: Int, height: Int): Int {
+        val previewRatio = max(width, height).toDouble() / min(width, height)
+        if (abs(previewRatio - RATIO_4_3_VALUE) <= abs(previewRatio - RATIO_16_9_VALUE)) {
+            return AspectRatio.RATIO_4_3
+        }
+        return AspectRatio.RATIO_16_9
+    }
+
 
     private fun imageToByteBuffer(image: ImageProxy, outputBuffer: ByteArray, pixelCount: Int) {
         if (BuildConfig.DEBUG && image.format != ImageFormat.YUV_420_888) {
@@ -312,4 +421,9 @@ class PreviewActivity : AppCompatActivity() {
         ProcessCameraProvider.getInstance(this).get().unbindAll()
     }
 
+
+    companion object{
+        private const val RATIO_4_3_VALUE = 4.0 / 3.0
+        private const val RATIO_16_9_VALUE = 16.0 / 9.0
+    }
 }
