@@ -111,26 +111,6 @@ class PreviewActivity : AppCompatActivity() {
 
         initCameraX()
 
-        /*val future = ProcessCameraProvider.getInstance(this)
-
-        future.addListener(Runnable{
-            val cameraProvider = future.get()
-            val cameraSelector =
-                CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
-            cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector,preview,imageAnalysis,imageCapture)
-        }, ContextCompat.getMainExecutor(this))
-
-       // tv_preview.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
-        //tv_preview.preferredImplementationMode = PreviewView.ImplementationMode.TEXTURE_VIEW
-        preview.setSurfaceProvider(tv_preview.surfaceProvider)
-        imageAnalysis.setAnalyzer(Executors.newSingleThreadExecutor(),ImageAnalysis.Analyzer {
-            Log.i("PreviewActivity",it.cropRect.toString() + it.format + it.height + it.image.toString()+ it.planes)
-            TargetRotation = it.imageInfo?.rotationDegrees
-            it.close()
-        })*/
-
-
-
         btn_kacha.setOnClickListener {
            // imageCapture.takePicture(Executors.newSingleThreadExecutor(), value)
 
